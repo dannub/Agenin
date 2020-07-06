@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "81696281515",
+    "firebase_url": "https://agenin-d96b3.firebaseio.com",
+    "project_id": "agenin-d96b3",
+    "storage_bucket": "agenin-d96b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81696281515:android:41e03422b0cb472c92b8ee",
+        "android_client_info": {
+          "package_name": "com.agenin.id"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81696281515-gt85j9e7sp8m4ggv063tssi4oobalkr2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.agenin.id",
+            "certificate_hash": "612644f0b25099ce03aa0cee6955f647823c8726"
+          }
+        },
+        {
+          "client_id": "81696281515-0jv4gu08h924tjj8jbpqsp6tn5o0jv3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYvEl3kxVGB-sq9LNgaahTmCJeOvlGLjw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81696281515-0jv4gu08h924tjj8jbpqsp6tn5o0jv3r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

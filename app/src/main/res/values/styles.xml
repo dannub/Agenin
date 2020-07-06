@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">
+            @color/fbutton_color_transparent
+        </item>
+
+    </style>
+
+    <style name="Home" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:autofilledHighlight" tools:targetApi="o">
+            @color/fbutton_color_transparent
+        </item>
+
+    </style>
+
+
+    <style name="Form" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+
+        <item name="android:autofilledHighlight" tools:targetApi="o">@color/fbutton_color_transparent</item>
+        <item name="colorControlNormal">@color/colorPrimaryDark3</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark4</item>
+        <item name="android:textColorHint">@color/colorPrimaryDark3</item>
+    </style>
+
+    <style name="WhiteProgressbar" parent="Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent3</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>

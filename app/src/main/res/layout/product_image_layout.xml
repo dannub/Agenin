@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:layout_marginBottom="16dp"
+    android:paddingBottom="16dp"
+    android:background="@color/colorAccent"
+
+    >
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/product_images_viewpager"
+        android:layout_width="0dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </androidx.viewpager.widget.ViewPager>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:clickable="true"
+        android:tint="@color/colorAccent3"
+        app:layout_constraintEnd_toStartOf="@+id/keranjang"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/download" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/keranjang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:tint="@color/colorAccent3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/chart" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/viewpager_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tabBackground="@drawable/dot_selector"
+        app:tabIndicatorHeight="0dp"
+        app:tabRippleColor="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_images_viewpager"/>
+
+    <ImageView
+        android:id="@+id/add_to_wishlist_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:tint="@color/colorAccent3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_title"
+        app:rippleColor="@color/colorAccent4"
+        app:srcCompat="@drawable/love" />
+
+    <TextView
+        android:id="@+id/product_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text=""
+        android:textColor="@color/colorAccent1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <TextView
+        android:id="@+id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:text=""
+        android:textColor="@color/colorPrimary"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/ori_price" />
+
+    <TextView
+        android:id="@+id/ori_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="13sp"
+        android:visibility="visible"
+        app:layout_constraintStart_toEndOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/product_title" />
+
+    <View
+        android:id="@+id/divider3"
+        android:visibility="visible"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent1"
+        app:layout_constraintBottom_toBottomOf="@+id/ori_price"
+        app:layout_constraintEnd_toEndOf="@+id/ori_price"
+        app:layout_constraintStart_toStartOf="@+id/ori_price"
+        app:layout_constraintTop_toTopOf="@+id/ori_price" />
+
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:text="Harga Agen :"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/product_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/product_price" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@color/colorAccent1"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/add_to_wishlist_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewpager_indicator" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Harga Jual :"
+        app:layout_constraintBottom_toBottomOf="@+id/ori_price"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ori_price" />
+
+    <TextView
+        android:id="@+id/satuan_harga_agen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="@+id/product_price"
+        app:layout_constraintEnd_toStartOf="@+id/add_to_wishlist_btn"
+        app:layout_constraintStart_toEndOf="@+id/product_price"
+        app:layout_constraintTop_toTopOf="@+id/product_price" />
+
+    <TextView
+        android:id="@+id/min_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="3dp"
+        android:text=" "
+        app:layout_constraintStart_toEndOf="@+id/textView24"
+        app:layout_constraintTop_toBottomOf="@+id/product_price" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Minimum Order :"
+        app:layout_constraintBottom_toBottomOf="@+id/min_order"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/min_order" />
+
+    <TextView
+        android:id="@+id/satuan_min_order"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@+id/min_order"
+        app:layout_constraintEnd_toStartOf="@+id/add_to_wishlist_btn"
+        app:layout_constraintStart_toEndOf="@+id/min_order"
+        app:layout_constraintTop_toTopOf="@+id/min_order" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

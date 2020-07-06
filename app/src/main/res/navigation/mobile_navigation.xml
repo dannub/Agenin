@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.agenin.id.Fragment.ui.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_tutorial"
+        android:name="com.agenin.id.Fragment.ui.TutorialFragment"
+        android:label="@string/title_tutorial"
+        tools:layout="@layout/fragment_tutorial" />
+
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.agenin.id.Fragment.ui.FavoriteFragment"
+        android:label="@string/title_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/navigation_myorders"
+        android:name="com.agenin.id.Fragment.ui.MyOrdersFragment"
+        android:label="@string/title_myorders"
+        tools:layout="@layout/fragment_myorders" />
+
+    <fragment
+        android:id="@+id/navigation_profil"
+        android:name="com.agenin.id.Fragment.ui.ProfilFragment"
+        android:label="@string/title_profil"
+        tools:layout="@layout/fragment_profil" />
+</navigation>
