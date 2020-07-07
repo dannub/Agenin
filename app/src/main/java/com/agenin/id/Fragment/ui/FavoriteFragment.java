@@ -26,6 +26,11 @@ import com.agenin.id.Adapter.WishlistAdapter;
 import com.agenin.id.DBQueries;
 import com.agenin.id.R;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+
 import static com.agenin.id.DBQueries.loadWishlist;
 
 public class FavoriteFragment extends Fragment {
@@ -97,7 +102,7 @@ public class FavoriteFragment extends Fragment {
     public void reloadPage(){
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo !=null && networkInfo.isConnected()==true) {
+        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
             loadWishlist(getContext(),loadingDialog,true);
 
         }else {
@@ -108,6 +113,19 @@ public class FavoriteFragment extends Fragment {
         }
 
     }
+    public static boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 https://apk.agenin.id");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+
+        return false;
+    }
+
 
     @Override
     public void onStart() {

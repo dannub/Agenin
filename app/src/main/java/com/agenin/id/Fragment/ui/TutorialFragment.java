@@ -25,6 +25,8 @@ import com.agenin.id.Adapter.YoutubeVideoAdapter;
 import com.agenin.id.DBQueries;
 import com.agenin.id.R;
 
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -56,7 +58,6 @@ public class TutorialFragment extends Fragment {
     private Dialog loadingDialog;
 
     @SuppressLint("MissingPermission")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_tutorial, container, false);
@@ -68,7 +69,9 @@ public class TutorialFragment extends Fragment {
         loadingDialog = new Dialog(getContext());
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getContext().getDrawable(R.drawable.slider_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            loadingDialog.getWindow().setBackgroundDrawable(getContext().getDrawable(R.drawable.slider_background));
+        }
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //loading dialog
@@ -107,13 +110,14 @@ public class TutorialFragment extends Fragment {
     private void reloadPage() {
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo != null && networkInfo.isConnected() == true) {
+        if (networkInfo != null && networkInfo.isConnected() == true && isOnline()) {
                DBQueries.loadVideolist(getContext(),loadingDialog,true,recyclerViewFeed,no_internet,noData);
 
         } else {
             noData.setVisibility(View.GONE);
             no_internet.setVisibility(View.VISIBLE);
                 recyclerViewFeed.setVisibility(View.GONE);
+                loadingDialog.dismiss();
         }
     }
 
@@ -159,4 +163,17 @@ public class TutorialFragment extends Fragment {
 //        videoArrayList.add(video4);
 //        return videoArrayList;
 //    }
+
+    public static boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 https://apk.agenin.id");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+
+        return false;
+    }
 }

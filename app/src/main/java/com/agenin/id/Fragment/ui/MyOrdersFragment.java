@@ -25,6 +25,11 @@ import com.agenin.id.Adapter.MyOrderAdapter;
 import com.agenin.id.DBQueries;
 import com.agenin.id.R;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+
 public class MyOrdersFragment extends Fragment {
 
 
@@ -93,7 +98,7 @@ public class MyOrdersFragment extends Fragment {
     public void reloadPage(){
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo !=null && networkInfo.isConnected()==true) {
+        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
             DBQueries.loadOrderList(getContext(),loadingDialog,layoutManager,myOrderRecycleView);
 
         }else {
@@ -111,6 +116,19 @@ public class MyOrdersFragment extends Fragment {
         reloadPage();
 
 
+    }
+
+    public static boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 https://apk.agenin.id");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+
+        return false;
     }
 
 }

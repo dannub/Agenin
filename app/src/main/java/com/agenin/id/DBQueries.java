@@ -1862,7 +1862,9 @@ public class DBQueries {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (!response.isSuccessful()){
-                                HomeFragment.maintance(true);
+                                MainActivity.navView.setVisibility(View.GONE);
+                                HomeFragment.maintance(false);
+                                loadingDialog.dismiss();
                                 Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
                                 return;
 
@@ -1871,7 +1873,7 @@ public class DBQueries {
 
 
                                 try {
-
+                                    MainActivity.navView.setVisibility(View.VISIBLE);
                                     JSONArray jsonArray = new JSONArray(response.body().string());
                                     JSONObject jobj = new JSONObject(jsonArray.get(0).toString());
                                     if (!(Boolean) jobj.get("status")){
@@ -1993,13 +1995,16 @@ public class DBQueries {
                                             @Override
                                             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
                                                 if (!response.isSuccessful()){
+                                                    MainActivity.navView.setVisibility(View.GONE);
+                                                    HomeFragment.maintance(false);
+                                                    loadingDialog.dismiss();
                                                     Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
                                                     return;
 
                                                 }
 
 
-
+                                                MainActivity.navView.setVisibility(View.VISIBLE);
 
                                                 categoryModelList= response.body();
 
@@ -2022,7 +2027,8 @@ public class DBQueries {
 
                                             @Override
                                             public void onFailure(Call<List<CategoryModel>> call, Throwable t) {
-                                                HomeFragment.maintance(true);
+                                                MainActivity.navView.setVisibility(View.GONE);
+                                                HomeFragment.maintance(false);
                                                 Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
                                                 Log.i("error",t.getMessage());
                                                 loadingDialog.dismiss();
@@ -2047,7 +2053,8 @@ public class DBQueries {
 
                         @Override
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            HomeFragment.maintance(true);
+                            MainActivity.navView.setVisibility(View.GONE);
+                            HomeFragment.maintance(false);
                             Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
                             Log.i("error",t.getMessage());
                             loadingDialog.dismiss();
@@ -2065,7 +2072,8 @@ public class DBQueries {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (!response.isSuccessful()){
-                        HomeFragment.maintance(true);
+                        MainActivity.navView.setVisibility(View.GONE);
+                        HomeFragment.maintance(false);
                         Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
                         return;
 
@@ -2172,6 +2180,7 @@ public class DBQueries {
                             if (lists.get(index).get(1).getType()!=4) {
                                 lists.get(index).add(1, new HomePageModel(4, categoryModelList));
                             }
+                            MainActivity.navView.setVisibility(View.VISIBLE);
                             HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label);
                             homePageRecyclerView.setAdapter(homePageAdapter);
                             homePageAdapter.notifyDataSetChanged();
@@ -2189,7 +2198,8 @@ public class DBQueries {
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    HomeFragment.maintance(true);
+                    MainActivity.navView.setVisibility(View.GONE);
+                    HomeFragment.maintance(false);
                     Toast.makeText(context,t.getMessage(),Toast.LENGTH_SHORT).show();
                     Log.i("error",t.getMessage());
                     loadingDialog.dismiss();

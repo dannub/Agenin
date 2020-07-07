@@ -40,48 +40,62 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/no_internet"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/retry_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/maintainance"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/maintance"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/maintainance_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/maintainance_text"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:textAlignment="center"
-        android:text="Halaman sementara sedang \n dalam Perbaikan"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="25dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/retry_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/refresh_layout">
+
+        <ImageView
+            android:id="@+id/maintainance"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/maintance"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/maintainance_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/maintainance_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:gravity="center_horizontal"
+            android:text="Halaman sementara sedang \n dalam Perbaikan"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/retry_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/retry_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:stateListAnimator="@null"
         android:text="Refresh"
         android:textAllCaps="false"
         android:textColor="@color/colorAccent"
         android:translationZ="8dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

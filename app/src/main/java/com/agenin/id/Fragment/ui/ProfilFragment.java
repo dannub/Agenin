@@ -53,6 +53,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -201,7 +205,7 @@ public class ProfilFragment extends Fragment {
         connectivityManager =(ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo !=null && networkInfo.isConnected()==true) {
+        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
 
             DBQueries.loadAddresses(getContext(), loadingDialog, false, 0,false);
 
@@ -391,6 +395,19 @@ public class ProfilFragment extends Fragment {
         }
         hasil = bulan+" "+hasil.substring(3,hasil.length());
         return hasil;
+    }
+
+    public static boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 https://apk.agenin.id");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+
+        return false;
     }
 
 

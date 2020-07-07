@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
     private Dialog loadingDialog;
     private FirebaseAuth firebaseAuth;
-    private  BottomNavigationView navView;
+    public  static   BottomNavigationView navView;
     public static TextView badgeCount;
     public static TextView notifyCount;
     private ImageView whatsapp;
@@ -450,6 +450,8 @@ public class MainActivity extends AppCompatActivity
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                 if (!response.isSuccessful()) {
+                                                    HomeFragment.maintance(true);
+                                                    loadingDialog.dismiss();
                                                     Toast.makeText(getApplicationContext(),response.code(),Toast.LENGTH_SHORT).show();
                                                     return;
                                                 }
@@ -459,6 +461,8 @@ public class MainActivity extends AppCompatActivity
 
                                             @Override
                                             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                HomeFragment.maintance(true);
+                                                loadingDialog.dismiss();
                                                 Log.e("debug", "onFailure: ERROR > " + t.toString());
 
 
@@ -483,7 +487,7 @@ public class MainActivity extends AppCompatActivity
 
                                 UserPreference userPreference = new UserPreference(MainActivity.this);
                                 userPreference.setUserPreference("user", null);
-
+                                HomeFragment.maintance(false);
                                 loadingDialog.dismiss();
 
                             }
@@ -492,9 +496,10 @@ public class MainActivity extends AppCompatActivity
 
                         @Override
                         public void onFailure(Call<UserModel> call, Throwable t) {
+                            HomeFragment.maintance(false);
+                            loadingDialog.dismiss();
                             Log.e("debug", "onFailure: ERROR > " + t.toString());
 
-                            loadingDialog.dismiss();
 
                         }
                     });

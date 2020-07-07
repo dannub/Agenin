@@ -44,6 +44,10 @@ import com.agenin.id.R;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -162,7 +166,7 @@ public class HomeFragment extends Fragment {
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
 
-        if (networkInfo !=null && networkInfo.isConnected()==true) {
+        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
             noInternetConnection.setVisibility(View.GONE);
             retryBtn.setVisibility(View.GONE);
             homepagerecyclerView.setVisibility(View.VISIBLE);
@@ -303,7 +307,7 @@ public class HomeFragment extends Fragment {
         DBQueries.loadedCategoriesNames.clear();
 //        DBqueries.clearData();
 
-        if (networkInfo !=null && networkInfo.isConnected()==true) {
+        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
 
             noInternetConnection.setVisibility(View.GONE);
             retryBtn.setVisibility(View.GONE);
@@ -365,6 +369,7 @@ public class HomeFragment extends Fragment {
                         public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                             if (response.isSuccessful()){
 
+                                MainActivity.navView.setVisibility(View.VISIBLE);
                                 UserModel userModel = response.body();
                                 userPreference.setUserPreference("user", userModel);
                                 DBQueries.loadCartList(context,loadingDialog,false,MainActivity.badgeCount,new TextView(context),false,null);
@@ -374,7 +379,8 @@ public class HomeFragment extends Fragment {
 
 
                             } else {
-                                HomeFragment.maintance(true);
+                                MainActivity.navView.setVisibility(View.GONE);
+                                HomeFragment.maintance(false);
 
                                 UserPreference userPreference = new UserPreference(context);
                                 userPreference.setUserPreference("user", null);
@@ -387,7 +393,8 @@ public class HomeFragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<UserModel> call, Throwable t) {
-                            HomeFragment.maintance(true);
+                            MainActivity.navView.setVisibility(View.GONE);
+                            HomeFragment.maintance(false);
                             Log.e("debug", "onFailure: ERROR > " + t.toString());
 
                             loadingDialog.dismiss();
@@ -412,7 +419,9 @@ public class HomeFragment extends Fragment {
          //   Glide.with(getContext()).load(R.drawable.no_internet).into(noInternetConnection);
             noInternetConnection.setVisibility(View.VISIBLE);
             retryBtn.setVisibility(View.VISIBLE);
+            MainActivity.navView.setVisibility(View.GONE);
             swipeRefreshLayout.setRefreshing(false);
+            loadingDialog.dismiss();
         }
     }
 
@@ -424,6 +433,19 @@ public class HomeFragment extends Fragment {
             maintanance.setVisibility(View.VISIBLE);
             maintanance_text.setVisibility(View.VISIBLE);
         }
+    }
+
+    public static boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 185.201.8.241");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        }
+        catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+
+        return false;
     }
 
     @Override
