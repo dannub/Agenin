@@ -1662,23 +1662,26 @@ public class DBQueries {
                     if (response.isSuccessful()){
 
 
+                        if (response.body().getCount()>0){
+                            StarAPI starAPI = response.body();
 
-                        StarAPI starAPI = response.body();
+                            for (int x = 0; x < starAPI.getCount(); x++) {
+                                myRatedIds.add(starAPI.getRatings().get(x).getProduct_ID());
+                                myRating.add(starAPI.getRatings().get(x).getRating());
 
-                        for (int x = 0; x < starAPI.getCount(); x++) {
-                            myRatedIds.add(starAPI.getRatings().get(x).getProduct_ID());
-                            myRating.add(starAPI.getRatings().get(x).getRating());
+                                if (starAPI.getRatings().get(x).getProduct_ID().equals(ProductDetailActivity.productID) ) {
+                                    ProductDetailActivity.initialRating = Integer.parseInt(String.valueOf(starAPI.getRatings().get(x).getRating())) - 1;
+                                    if (ProductDetailActivity.rateNowContainer != null) {
+                                        ProductDetailActivity.setRatting(ProductDetailActivity.initialRating);
 
-                            if (starAPI.getRatings().get(x).getProduct_ID().equals(ProductDetailActivity.productID) ) {
-                                ProductDetailActivity.initialRating = Integer.parseInt(String.valueOf(starAPI.getRatings().get(x).getRating())) - 1;
-                                if (ProductDetailActivity.rateNowContainer != null) {
-                                    ProductDetailActivity.setRatting(ProductDetailActivity.initialRating);
-
+                                    }
                                 }
+
+
                             }
 
-
                         }
+
 
 
                         ProductDetailActivity.running_rating_query=false;
@@ -2022,6 +2025,7 @@ public class DBQueries {
                                                 }
 
 
+                                                HomeFragment.isHome = true;
                                                 loadingDialog.dismiss();
                                             }
 
@@ -2177,9 +2181,10 @@ public class DBQueries {
 
 
                             }
-                            if (lists.get(index).get(1).getType()!=4) {
-                                lists.get(index).add(1, new HomePageModel(4, categoryModelList));
+                            if (lists.get(index).get(0).getType()!=4) {
+                                lists.get(index).add(0, new HomePageModel(4, categoryModelList));
                             }
+                            HomeFragment.isHome = false;
                             MainActivity.navView.setVisibility(View.VISIBLE);
                             HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label);
                             homePageRecyclerView.setAdapter(homePageAdapter);

@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -77,6 +78,7 @@ public class HomeFragment extends Fragment {
     private static ImageView maintanance;
     private static TextView maintanance_text;
     private static Button retryBtn;
+    public static Boolean isHome;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -150,6 +152,7 @@ public class HomeFragment extends Fragment {
         homePageModelFakeList.add(new HomePageModel("",2,"","#dfdfdf",horizontalProductScrollModelFakeList,new ArrayList<WishlistModel>()));
 
 
+        isHome =true;
 
         adapter = new HomePageAdapter(getContext(),homePageModelFakeList,"");
         adapter.notifyDataSetChanged();
@@ -166,7 +169,7 @@ public class HomeFragment extends Fragment {
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
 
-        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
+        if (networkInfo !=null && networkInfo.isConnected()==true ) {
             noInternetConnection.setVisibility(View.GONE);
             retryBtn.setVisibility(View.GONE);
             homepagerecyclerView.setVisibility(View.VISIBLE);
@@ -251,6 +254,9 @@ public class HomeFragment extends Fragment {
                         }
                     });
 
+                }else {
+                    DBQueries.loadCartList(itemView.getContext(),loadingDialog,false,MainActivity.badgeCount,new TextView(itemView.getContext()),false,null);
+
                 }
             }else {
 //                if (DBQueries.lists.size() == 0) {
@@ -307,7 +313,7 @@ public class HomeFragment extends Fragment {
         DBQueries.loadedCategoriesNames.clear();
 //        DBqueries.clearData();
 
-        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
+        if (networkInfo !=null && networkInfo.isConnected()==true ) {
 
             noInternetConnection.setVisibility(View.GONE);
             retryBtn.setVisibility(View.GONE);
@@ -402,6 +408,12 @@ public class HomeFragment extends Fragment {
                         }
                     });
 
+                }else {
+                    MainActivity.navView.setVisibility(View.VISIBLE);
+                    DBQueries.loadCartList(context,loadingDialog,false,MainActivity.badgeCount,new TextView(context),false,null);
+                    DBQueries.loadAddresses(context,loadingDialog,false,0,true);
+                    DBQueries.loadRatingList(context,loadingDialog);
+                    DBQueries.loadCountNotification(context,loadingDialog,MainActivity.notifyCount);
                 }
             }else {
                 loadingDialog.dismiss();
@@ -435,18 +447,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public static boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 185.201.8.241");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace(); }
-        catch (InterruptedException e) { e.printStackTrace(); }
 
-        return false;
-    }
+
 
     @Override
     public void onStart() {

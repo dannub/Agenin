@@ -162,7 +162,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
     @SuppressLint("WrongViewCast")
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,7 +219,9 @@ public class ProductDetailActivity extends AppCompatActivity {
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        }
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
@@ -329,7 +330,6 @@ public class ProductDetailActivity extends AppCompatActivity {
         if (update){
             return String.valueOf(totalStars / Long.parseLong(totalRatingsFigure.getText().toString())).substring(0,3);
         }else {
-            Log.i("total", String.valueOf(totalStars));
             return String.valueOf(totalStars / (Long.parseLong(totalRatingsFigure.getText().toString())+ 1)).substring(0,3);
         }
     }
@@ -569,7 +569,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                                             CartClient cartAPI = retrofit.create(CartClient.class);
                                             Call<Integer> call = cartAPI.setMyCart(user.getId(), productID);
                                             call.enqueue(new Callback<Integer>() {
-                                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                                 @Override
                                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
                                                     if (!response.isSuccessful()) {
@@ -794,6 +793,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                                             }
                                         });
+
+                                        Log.i("star", String.valueOf(starPosition));
                                         if (!running_rating_query) {
                                             running_rating_query = true;
 
@@ -827,7 +828,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                                             Call<ResponseBody> call = starApi.setMyStar(user.getId(),productID,starPosition+1);
 
                                             call.enqueue(new Callback<ResponseBody>() {
-                                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                                 @Override
                                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                     if (response.isSuccessful()){
@@ -884,7 +884,8 @@ public class ProductDetailActivity extends AppCompatActivity {
                                                     } else {
 
                                                         setRatting(initialRating);
-                                                        Toast.makeText(ProductDetailActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                                                        Log.i("error", String.valueOf((CharSequence) response.errorBody()));
+                                                        Toast.makeText(ProductDetailActivity.this, (CharSequence) response.errorBody(), Toast.LENGTH_SHORT).show();
                                                     }
                                                     running_rating_query = false;
                                                     loadingDialog.dismiss();
@@ -962,7 +963,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                                         WishlistClient wishlistAPI = retrofit.create(WishlistClient.class);
                                         Call<ResponseBody> call = wishlistAPI.setMyWishlist(user.getId(),productID);
                                         call.enqueue(new Callback<ResponseBody>() {
-                                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                 if (response.isSuccessful()) {
@@ -1035,7 +1035,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                                         WishlistClient wishlistAPI = retrofit.create(WishlistClient.class);
                                         Call<ResponseBody> call = wishlistAPI.setMyWishlist(user.getId(),productID);
                                         call.enqueue(new Callback<ResponseBody>() {
-                                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                             @Override
                                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                 if (response.isSuccessful()) {

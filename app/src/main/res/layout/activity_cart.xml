@@ -76,7 +76,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-
                 android:text="Keranjang Kosong"
                 android:textColor="@color/colorAccent1"
                 app:layout_constraintBottom_toBottomOf="parent"

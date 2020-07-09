@@ -217,33 +217,33 @@ public class DeliveryActivity extends AppCompatActivity {
                         bca = paymentMethodDialog.findViewById(R.id.bca);
                         mandiri = paymentMethodDialog.findViewById(R.id.mandiri);
 
-                        bri.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PaymentActivity.cartItemModelList = new ArrayList<>();
-                                PaymentActivity.cartItemModelList.clear();
-
-                                for (int x = 0; x < cartItemModelList.size(); x++) {
-                                    CartItemModel cartItemModel = cartItemModelList.get(x);
-                                    if (x!=cartItemModelList.size()-1){
-                                        if (cartItemModel.getInStock()) {
-                                            PaymentActivity.cartItemModelList.add(cartItemModel);
-                                        }
-                                    }else {
-                                        PaymentActivity.cartItemModelList.add(cartItemModel);
-                                    }
-
-                                }
-
-
-                                paymentMethodDialog.dismiss();
-                                Intent deliveryIntent = new Intent(DeliveryActivity.this, PaymentInfoActivity.class);
-                                deliveryIntent.putExtra("bank",1);
-                                startActivity(deliveryIntent);
-
-
-                            }
-                        });
+//                        bri.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                PaymentActivity.cartItemModelList = new ArrayList<>();
+//                                PaymentActivity.cartItemModelList.clear();
+//
+//                                for (int x = 0; x < cartItemModelList.size(); x++) {
+//                                    CartItemModel cartItemModel = cartItemModelList.get(x);
+//                                    if (x!=cartItemModelList.size()-1){
+//                                        if (cartItemModel.getInStock()) {
+//                                            PaymentActivity.cartItemModelList.add(cartItemModel);
+//                                        }
+//                                    }else {
+//                                        PaymentActivity.cartItemModelList.add(cartItemModel);
+//                                    }
+//
+//                                }
+//
+//
+//                                paymentMethodDialog.dismiss();
+//                                Intent deliveryIntent = new Intent(DeliveryActivity.this, PaymentInfoActivity.class);
+//                                deliveryIntent.putExtra("bank",1);
+//                                startActivity(deliveryIntent);
+//
+//
+//                            }
+//                        });
 
                         bni.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -271,34 +271,34 @@ public class DeliveryActivity extends AppCompatActivity {
                                 startActivity(deliveryIntent);
                             }
                         });
-
-                        bca.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                PaymentActivity.cartItemModelList = new ArrayList<>();
-                                PaymentActivity.cartItemModelList.clear();
-
-                                for (int x = 0; x < cartItemModelList.size(); x++) {
-                                    CartItemModel cartItemModel = cartItemModelList.get(x);
-                                    if (x!=cartItemModelList.size()-1){
-                                        if (cartItemModel.getInStock()) {
-                                            PaymentActivity.cartItemModelList.add(cartItemModel);
-                                        }
-                                    }else {
-                                        PaymentActivity.cartItemModelList.add(cartItemModel);
-                                    }
-
-                                }
-
-//                                PaymentActivity.cartPaymentAdapter = new CartPaymentAdapter(PaymentActivity.cartItemModelList);
-
-
-                                paymentMethodDialog.dismiss();
-                                Intent deliveryIntent = new Intent(DeliveryActivity.this, PaymentInfoActivity.class);
-                                deliveryIntent.putExtra("bank",3);
-                                startActivity(deliveryIntent);
-                            }
-                        });
+//
+//                        bca.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                PaymentActivity.cartItemModelList = new ArrayList<>();
+//                                PaymentActivity.cartItemModelList.clear();
+//
+//                                for (int x = 0; x < cartItemModelList.size(); x++) {
+//                                    CartItemModel cartItemModel = cartItemModelList.get(x);
+//                                    if (x!=cartItemModelList.size()-1){
+//                                        if (cartItemModel.getInStock()) {
+//                                            PaymentActivity.cartItemModelList.add(cartItemModel);
+//                                        }
+//                                    }else {
+//                                        PaymentActivity.cartItemModelList.add(cartItemModel);
+//                                    }
+//
+//                                }
+//
+////                                PaymentActivity.cartPaymentAdapter = new CartPaymentAdapter(PaymentActivity.cartItemModelList);
+//
+//
+//                                paymentMethodDialog.dismiss();
+//                                Intent deliveryIntent = new Intent(DeliveryActivity.this, PaymentInfoActivity.class);
+//                                deliveryIntent.putExtra("bank",3);
+//                                startActivity(deliveryIntent);
+//                            }
+//                        });
 
                         mandiri.setOnClickListener(new View.OnClickListener() {
                             @Override

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.agenin.id.Fragment.ui.MyOrdersFragment;
 import com.agenin.id.Fragment.ui.ProfilFragment;
 import com.agenin.id.Fragment.ui.SignInFragment;
 import com.agenin.id.Fragment.ui.SignUpFragment;
+import com.agenin.id.Fragment.ui.TransferDaftarFragment;
 import com.agenin.id.Fragment.ui.TutorialFragment;
 import com.agenin.id.Interface.UserClient;
 import com.agenin.id.Model.UserModel;
@@ -207,7 +209,7 @@ public class MainActivity extends AppCompatActivity
         whatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String noWA = "085746134241";
+                String noWA = "082140398599";
 
                 if (noWA.substring(0,1).equals("0")){
                     noWA="+62"+noWA.substring(1,noWA.length());
@@ -298,6 +300,8 @@ public class MainActivity extends AppCompatActivity
                                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.left_to_right).replace(R.id.nav_host_fragment,setectedFragment).commit();
 
                            }else {
+
+                               navView.getMenu().getItem(0).setChecked(true);
                                MenuItem menuItem = navView.getMenu().findItem(item.getItemId());
                                menuItem.setCheckable(false);
                                signInDialog.show();
@@ -318,6 +322,8 @@ public class MainActivity extends AppCompatActivity
                                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.left_to_right).replace(R.id.nav_host_fragment,setectedFragment).commit();
 
                            }else {
+
+                               navView.getMenu().getItem(0).setChecked(true);
                                MenuItem menuItem = navView.getMenu().findItem(item.getItemId());
                                menuItem.setCheckable(false);
                                signInDialog.show();
@@ -338,6 +344,8 @@ public class MainActivity extends AppCompatActivity
                                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.left_to_right).replace(R.id.nav_host_fragment,setectedFragment).commit();
 
                            }else {
+
+                               navView.getMenu().getItem(0).setChecked(true);
                                MenuItem menuItem = navView.getMenu().findItem(item.getItemId());
                                menuItem.setCheckable(false);
                                signInDialog.show();
@@ -535,17 +543,53 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(keyCode == KeyEvent.KEYCODE_BACK){
+//            if (!isHome||currentFragment!=HOME_FRAGMENT){
+//                params.setScrollFlags(scrollFlags);
+//                navView.getMenu().getItem(0).setChecked(true);
+//                currentFragment = HOME_FRAGMENT;
+//                Fragment setectedFragment = new HomeFragment();
+//                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.left_to_right).replace(R.id.nav_host_fragment,setectedFragment).commit();
+//
+//                Log.i("is not home","fsdfsdfdsf");
+//            }else if (currentFragment==HOME_FRAGMENT){
+//                super.onBackPressed();
+//            }
+//
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
     @Override
     public void onBackPressed() {
 
-      if (!isHome||currentFragment!=HOME_FRAGMENT){
+      if (isHome||currentFragment==HOME_FRAGMENT){
+            if (HomeFragment.isHome){
+
+                super.onBackPressed();
+            }else {
+                params.setScrollFlags(scrollFlags);
+                navView.getMenu().getItem(0).setChecked(true);
+                currentFragment = HOME_FRAGMENT;
+                Fragment setectedFragment = new HomeFragment();
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.left_to_right).replace(R.id.nav_host_fragment,setectedFragment).commit();
+                invalidateOptionsMenu();
+            }
+
+      }else if (currentFragment!=HOME_FRAGMENT){
+
           params.setScrollFlags(scrollFlags);
+          navView.getMenu().getItem(0).setChecked(true);
           currentFragment = HOME_FRAGMENT;
           Fragment setectedFragment = new HomeFragment();
           getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.fade_in,R.anim.left_to_right).replace(R.id.nav_host_fragment,setectedFragment).commit();
-
+          invalidateOptionsMenu();
       }
-        super.onBackPressed();
+
+
+//        super.onBackPressed();
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

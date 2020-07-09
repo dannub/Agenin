@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:gravity="center_horizontal"
-            android:text="Halaman sementara sedang \n dalam Perbaikan"
+            android:text="Halaman sementara sedang \n dalam perbaikan"
             android:textAlignment="center"
             android:visibility="gone"
             android:textColor="@color/colorPrimaryDark"

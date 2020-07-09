@@ -121,7 +121,7 @@ public class MyOrdersFragment extends Fragment {
     public static boolean isOnline() {
         Runtime runtime = Runtime.getRuntime();
         try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 https://apk.agenin.id");
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 185.201.8.241");
             int     exitValue = ipProcess.waitFor();
             return (exitValue == 0);
         }

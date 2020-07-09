@@ -168,18 +168,13 @@ public class ProfilFragment extends Fragment {
         layoutContainer.setVisibility(View.GONE);
         layoutContainer.getChildAt(1).setVisibility(View.GONE);
 
-
-
-
-
         viewAllAddressBtn = view.findViewById(R.id.view_all_addresses_btn);
         viewAllAddressBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myAddressIntent = new Intent(getContext(), MyAddressesActivity.class);
-                myAddressIntent.putExtra("MODE",MANAGE_ADDRESS);
+                myAddressIntent.putExtra("MODE", MANAGE_ADDRESS);
                 startActivity(myAddressIntent);
-
             }
         });
 
@@ -205,7 +200,7 @@ public class ProfilFragment extends Fragment {
         connectivityManager =(ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        if (networkInfo !=null && networkInfo.isConnected()==true && isOnline()) {
+        if (networkInfo !=null && networkInfo.isConnected()==true ) {
 
             DBQueries.loadAddresses(getContext(), loadingDialog, false, 0,false);
 
@@ -244,7 +239,6 @@ public class ProfilFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-
         loadingDialog.show();
         loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -252,108 +246,112 @@ public class ProfilFragment extends Fragment {
 
             }
         });
-        UserPreference userPreference = new UserPreference(getContext());
-        userPreference.setUserPreference("user", null);
-        if (user != null) {
+        connectivityManager =(ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo !=null && networkInfo.isConnected()==true ) {
+
+            UserPreference userPreference = new UserPreference(getContext());
+            userPreference.setUserPreference("user", null);
+            if (user != null) {
 
 
-            if (userPreference.getUserPreference("user") == null) {
-                final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .readTimeout(60, TimeUnit.SECONDS)
-                        .connectTimeout(60, TimeUnit.SECONDS)
-                        .build();
+                if (userPreference.getUserPreference("user") == null) {
 
-                Retrofit.Builder builder = new Retrofit.Builder()
-                        .baseUrl(DBQueries.url)
-                        .client(okHttpClient)
-                        .addConverterFactory(GsonConverterFactory.create());
+                    final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                            .readTimeout(60, TimeUnit.SECONDS)
+                            .connectTimeout(60, TimeUnit.SECONDS)
+                            .build();
 
-                Retrofit retrofit = builder.build();
-                UserClient client = retrofit.create(UserClient.class);
+                    Retrofit.Builder builder = new Retrofit.Builder()
+                            .baseUrl(DBQueries.url)
+                            .client(okHttpClient)
+                            .addConverterFactory(GsonConverterFactory.create());
 
-                Call<UserModel> call = client.login(user.getEmail(), user.getUid());
+                    Retrofit retrofit = builder.build();
+                    UserClient client = retrofit.create(UserClient.class);
 
-                call.enqueue(new Callback<UserModel>() {
-                    @Override
-                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        if (response.isSuccessful()) {
+                    Call<UserModel> call = client.login(user.getEmail(), user.getUid());
 
+                    call.enqueue(new Callback<UserModel>() {
+                        @Override
+                        public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                            if (response.isSuccessful()) {
 
+                                userModel = response.body();
+                                userPreference.setUserPreference("user", userModel);
 
+                                DBQueries.loadAddresses(getContext(), loadingDialog, false, 0, false);
 
-                            userModel = response.body();
-                            userPreference.setUserPreference("user", userModel);
+                                name.setText(userModel.getName());
+                                email.setText(userModel.getEmail());
+                                Date userDate = DBQueries.StringtoDate(userModel.getDate());
 
-                            DBQueries.loadAddresses(getContext(), loadingDialog, false, 0,false);
-
-                            name.setText(userModel.getName());
-                            email.setText(userModel.getEmail());
-                            Date userDate = DBQueries.StringtoDate(userModel.getDate());
-
-                            user_date.setText("Bergabung sejak : "+datetoString(userDate));
-                            if (userModel.getStatus()){
-                                if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
-                                    dot.setImageTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.colorSuccess)));
-                                }else {
-                                    dot.setVisibility(View.GONE);
+                                user_date.setText("Bergabung sejak : " + datetoString(userDate));
+                                if (userModel.getStatus()) {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        dot.setImageTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.colorSuccess)));
+                                    } else {
+                                        dot.setVisibility(View.GONE);
+                                    }
+                                    status.setText(" Aktif");
+                                } else {
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        dot.setImageTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.colorPrimary)));
+                                    } else {
+                                        dot.setVisibility(View.GONE);
+                                    }
+                                    status.setText(" Menunggu Konfirmasi");
                                 }
-                                status.setText(" Aktif");
-                            }else {
-                                if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP) {
-                                    dot.setImageTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.colorPrimary)));
-                                }else {
-                                    dot.setVisibility(View.GONE);
+                                if (!userModel.getProfil().equals("")) {
+                                    Glide.with(getContext()).load(DBQueries.url + userModel.getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(profileview);
+
+                                } else {
+                                    profileview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.profil2));
+
                                 }
-                                status.setText(" Menunggu Konfirmasi");
-                            }
-                            if (!userModel.getProfil().equals("")) {
-                                Glide.with(getContext()).load(DBQueries.url + userModel.getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(profileview);
+
+                                if (!loadingDialog.isShowing()) {
+                                    if (DBQueries.addressModelList.size() == 0) {
+                                        addressname.setText("No Address");
+                                        address.setText("-");
+                                        pincode.setText("-");
+                                    } else {
+                                        setAddress();
+                                    }
+
+                                }
+
+                                layoutContainer.setVisibility(View.VISIBLE);
+                                layoutContainer.getChildAt(1).setVisibility(View.VISIBLE);
+
+                                reloadPage();
 
                             } else {
-                                profileview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.profil2));
+
+                                UserPreference userPreference = new UserPreference(getContext());
+                                userPreference.setUserPreference("user", null);
+
+                                loadingDialog.dismiss();
 
                             }
 
-                            if (!loadingDialog.isShowing()) {
-                                if (DBQueries.addressModelList.size() == 0) {
-                                    addressname.setText("No Address");
-                                    address.setText("-");
-                                    pincode.setText("-");
-                                } else {
-                                    setAddress();
-                                }
+                        }
 
-                            }
-
-                            layoutContainer.setVisibility(View.VISIBLE);
-                            layoutContainer.getChildAt(1).setVisibility(View.VISIBLE);
-
-                            reloadPage();
-
-
-                        } else {
-
-
-                            UserPreference userPreference = new UserPreference(getContext());
-                            userPreference.setUserPreference("user", null);
+                        @Override
+                        public void onFailure(Call<UserModel> call, Throwable t) {
+                            Log.e("debug", "onFailure: ERROR > " + t.toString());
 
                             loadingDialog.dismiss();
 
                         }
+                    });
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<UserModel> call, Throwable t) {
-                        Log.e("debug", "onFailure: ERROR > " + t.toString());
-
-                        loadingDialog.dismiss();
-
-                    }
-                });
-
+                }
+            } else {
+                loadingDialog.dismiss();
             }
-        } else {
+        }else {
             loadingDialog.dismiss();
         }
     }
@@ -397,18 +395,18 @@ public class ProfilFragment extends Fragment {
         return hasil;
     }
 
-    public static boolean isOnline() {
-        Runtime runtime = Runtime.getRuntime();
-        try {
-            Process ipProcess = runtime.exec("/system/bin/ping -c 1 https://apk.agenin.id");
-            int     exitValue = ipProcess.waitFor();
-            return (exitValue == 0);
-        }
-        catch (IOException e)          { e.printStackTrace(); }
-        catch (InterruptedException e) { e.printStackTrace(); }
-
-        return false;
-    }
+//    public static boolean isOnline() {
+//        Runtime runtime = Runtime.getRuntime();
+//        try {
+//            Process ipProcess = runtime.exec("/system/bin/ping -c 1 185.201.8.241");
+//            int     exitValue = ipProcess.waitFor();
+//            return (exitValue == 0);
+//        }
+//        catch (IOException e)          { e.printStackTrace(); }
+//        catch (InterruptedException e) { e.printStackTrace(); }
+//
+//        return false;
+//    }
 
 
 }

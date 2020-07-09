@@ -79,14 +79,14 @@ public class TransferDaftarFragment extends Fragment {
             });
         }else if ((String)SignUpFragment.userdata.get("bukti_bank")=="BNI"){
             bank_img.setImageDrawable(itemview.getResources().getDrawable(R.drawable.bni));
-            norek.setText("00000000000000123");
+            norek.setText("482520509");
             cabang.setText("Surabaya");
-            an.setText("Agenin BNI");
+            an.setText("Moh Rizal Rizki");
             salin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "00000000000000123");
+                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "482520509");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(getContext(),"No.Rekening tersalin",Toast.LENGTH_SHORT).show();
 
@@ -109,14 +109,14 @@ public class TransferDaftarFragment extends Fragment {
             });
         }else {
             bank_img.setImageDrawable(itemview.getResources().getDrawable(R.drawable.mandiri));
-            norek.setText("00000000000000567");
+            norek.setText("1410013917737");
             cabang.setText("Surabaya");
-            an.setText("Agenin Mandiri");
+            an.setText("Moh Rizal Rizki");
             salin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "00000000000000567");
+                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "1410013917737");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(getContext(),"No.Rekening tersalin",Toast.LENGTH_SHORT).show();
 

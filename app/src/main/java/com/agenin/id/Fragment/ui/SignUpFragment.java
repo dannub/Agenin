@@ -298,20 +298,20 @@ public class SignUpFragment extends Fragment {
                 bni = paymentMethodDialog.findViewById(R.id.bni);
                 bca = paymentMethodDialog.findViewById(R.id.bca);
                 mandiri = paymentMethodDialog.findViewById(R.id.mandiri);
-
-                bri.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        paymentMethodDialog.dismiss();
-                        userdata.put("bukti_bank","BRI");
-                        RegisterActivity.onTransferDaftarFragment = true;
-                        setFragment(new TransferDaftarFragment());
-
-
-
-                    }
-                });
+//
+//                bri.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                        paymentMethodDialog.dismiss();
+//                        userdata.put("bukti_bank","BRI");
+//                        RegisterActivity.onTransferDaftarFragment = true;
+//                        setFragment(new TransferDaftarFragment());
+//
+//
+//
+//                    }
+//                });
 
                 bni.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -326,15 +326,15 @@ public class SignUpFragment extends Fragment {
                     }
                 });
 
-                bca.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        paymentMethodDialog.dismiss();
-                        userdata.put("bukti_bank","BCA");
-                        RegisterActivity.onTransferDaftarFragment = true;
-                        setFragment(new TransferDaftarFragment());
-                    }
-                });
+//                bca.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        paymentMethodDialog.dismiss();
+//                        userdata.put("bukti_bank","BCA");
+//                        RegisterActivity.onTransferDaftarFragment = true;
+//                        setFragment(new TransferDaftarFragment());
+//                    }
+//                });
 
                 mandiri.setOnClickListener(new View.OnClickListener() {
                     @Override

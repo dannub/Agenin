@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -12,6 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:layout_gravity="center"
         android:text="Pilih Bank"
         android:textColor="@color/colorAccent1"
         android:textSize="18sp"
@@ -19,20 +21,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/bri"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/fbutton_color_transparent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27"
-        app:srcCompat="@drawable/bri" />
-
     <ImageButton
         android:id="@+id/bni"
         android:background="@color/fbutton_color_transparent"
@@ -45,21 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bri"
         app:srcCompat="@drawable/bni" />
-
-
-    <ImageButton
-        android:id="@+id/bca"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/fbutton_color_transparent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bni"
-        app:srcCompat="@drawable/bca" />
-
     <ImageButton
         android:id="@+id/mandiri"
         android:layout_width="wrap_content"
@@ -74,4 +47,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bca"
         app:srcCompat="@drawable/mandiri" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/bri"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/fbutton_color_transparent"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView27"-->
+<!--        app:srcCompat="@drawable/bri" />-->
+
+<!--    -->
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/bca"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/fbutton_color_transparent"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/bni"-->
+<!--        app:srcCompat="@drawable/bca" />-->
+
+
+</LinearLayout>
