@@ -505,7 +505,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     .create();
 
             UserPreference userPreference = new UserPreference(OrderDetailsActivity.this);
-            UserModel user = userPreference.getUserPreference("user");
+            UserModel user = UserPreference.getUserPreference("user");
 
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
@@ -637,7 +637,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                             String noWA = myOrderDetail.getItems().getProduct_ID().getNo_pedagang();
 
                             if (noWA.substring(0,1).equals("0")){
-                                noWA="+62"+noWA.substring(1,noWA.length());
+                                noWA="+62"+noWA.substring(1);
                             }
                             String url = "https://api.whatsapp.com/send?phone=" + noWA;
                             try {
@@ -678,7 +678,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                                     .create();
 
                                             UserPreference userPreference = new UserPreference(OrderDetailsActivity.this);
-                                            UserModel user = userPreference.getUserPreference("user");
+                                            UserModel user = UserPreference.getUserPreference("user");
 
                                             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                                     .addInterceptor(new Interceptor() {
@@ -778,7 +778,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                                     .create();
 
                                             UserPreference userPreference = new UserPreference(OrderDetailsActivity.this);
-                                            UserModel user = userPreference.getUserPreference("user");
+                                            UserModel user = UserPreference.getUserPreference("user");
 
                                             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                                     .addInterceptor(new Interceptor() {
@@ -862,7 +862,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                                     .create();
 
                                             UserPreference userPreference = new UserPreference(OrderDetailsActivity.this);
-                                            UserModel user = userPreference.getUserPreference("user");
+                                            UserModel user = UserPreference.getUserPreference("user");
 
                                             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                                     .addInterceptor(new Interceptor() {

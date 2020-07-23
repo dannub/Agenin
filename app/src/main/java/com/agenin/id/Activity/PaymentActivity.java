@@ -427,7 +427,7 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
             MultipartBody.Part body = MultipartBody.Part.createFormData("bukti",file.getName(),fileBody);
 
             UserPreference userPreference = new UserPreference(context);
-            UserModel user = userPreference.getUserPreference("user");
+            UserModel user = UserPreference.getUserPreference("user");
 
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
@@ -505,10 +505,10 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
                         if (DBQueries.cartlist.size() != 0) {
 
 
-                            MainActivity.mainActivity.badgeCount.setVisibility(View.VISIBLE);
+                            MainActivity.badgeCount.setVisibility(View.VISIBLE);
                            MainActivity.mainActivity.loadCart();
                         } else {
-                            MainActivity.mainActivity.badgeCount.setVisibility(View.INVISIBLE);
+                            MainActivity.badgeCount.setVisibility(View.INVISIBLE);
                         }
 
 
@@ -988,7 +988,7 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
                         return Environment.getExternalStorageDirectory() + "/" + split[1];
                     }
 
-                    // TODO handle non-primary volumes
+
                 }
                 // DownloadsProvider
                 else if (isDownloadsDocument(uri)) {

@@ -509,7 +509,7 @@ public class DaftarFragment extends Fragment  {
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
                                                             UserPreference userPreference = new UserPreference(context);
-                                                            userPreference.setUserPreference("user", null);
+                                                            UserPreference.setUserPreference("user", null);
 
                                                             FirebaseAuth.getInstance().signOut();
 
@@ -528,7 +528,7 @@ public class DaftarFragment extends Fragment  {
                         dialog.dismiss();
                         UserPreference userPreference = new UserPreference(context);
                         UserModel userModel = response.body().getUser();
-                        userPreference.setUserPreference("user", userModel);
+                        UserPreference.setUserPreference("user", userModel);
                         SignInFragment.isLogin = true;
                         Toast.makeText(context, "Selamat Datang di Agenin", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, MainActivity.class);
@@ -563,7 +563,7 @@ public class DaftarFragment extends Fragment  {
                                                         dialog.dismiss();
                                                         FirebaseAuth.getInstance().signOut();
                                                         UserPreference userPreference = new UserPreference(context);
-                                                        userPreference.setUserPreference("user", null);
+                                                        UserPreference.setUserPreference("user", null);
                                                         Log.i("error",call.toString());
                                                         Log.i("trhrowable",t.toString());
                                                         Toast.makeText(context,"Failed",Toast.LENGTH_SHORT).show();
@@ -668,7 +668,6 @@ public class DaftarFragment extends Fragment  {
                         return Environment.getExternalStorageDirectory() + "/" + split[1];
                     }
 
-                    // TODO handle non-primary volumes
                 }
                 // DownloadsProvider
                 else if (isDownloadsDocument(uri)) {

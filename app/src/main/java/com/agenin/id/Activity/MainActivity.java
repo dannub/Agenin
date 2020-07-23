@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity
                 String noWA = "082140398599";
 
                 if (noWA.substring(0,1).equals("0")){
-                    noWA="+62"+noWA.substring(1,noWA.length());
+                    noWA="+62"+noWA.substring(1);
                 }
                 String url = "https://api.whatsapp.com/send?phone=" + noWA;
                 try {
@@ -395,11 +395,11 @@ public class MainActivity extends AppCompatActivity
                 }
             });
             UserPreference userPreference = new UserPreference(this);
-            userPreference.setUserPreference("user",null);
+            UserPreference.setUserPreference("user",null);
             if (user!=null){
 
 
-                if(userPreference.getUserPreference("user")==null){
+                if(UserPreference.getUserPreference("user")==null){
                     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                             .readTimeout(60, TimeUnit.SECONDS)
                             .connectTimeout(60, TimeUnit.SECONDS)
@@ -427,7 +427,7 @@ public class MainActivity extends AppCompatActivity
 
                                         getPreferences(Context.MODE_PRIVATE).edit().putString("fb", newToken).apply();
                                         UserPreference userPreference = new UserPreference(MainActivity.this);
-                                        UserModel user = userPreference.getUserPreference("user");
+                                        UserModel user = UserPreference.getUserPreference("user");
 
                                         Gson gson = new GsonBuilder()
                                                 .setLenient()
@@ -483,7 +483,7 @@ public class MainActivity extends AppCompatActivity
 
                                 UserModel userModel = response.body();
 
-                                userPreference.setUserPreference("user", userModel);
+                                UserPreference.setUserPreference("user", userModel);
 //                                DBQueries.loadAddresses(MainActivity.this,loadingDialog,false,0,true);
 //                                DBQueries.loadCartList(MainActivity.this,loadingDialog,false,badgeCount,new TextView(MainActivity.this),false,null);
 //                                DBQueries.loadRatingList(MainActivity.this,loadingDialog);
@@ -494,7 +494,7 @@ public class MainActivity extends AppCompatActivity
 
 
                                 UserPreference userPreference = new UserPreference(MainActivity.this);
-                                userPreference.setUserPreference("user", null);
+                                UserPreference.setUserPreference("user", null);
                                 HomeFragment.maintance(false);
                                 loadingDialog.dismiss();
 

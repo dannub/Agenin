@@ -189,11 +189,11 @@ public class HomeFragment extends Fragment {
 
 
             UserPreference userPreference = new UserPreference(itemView.getContext());
-            userPreference.setUserPreference("user",null);
+            UserPreference.setUserPreference("user",null);
             if (FirebaseAuth.getInstance().getCurrentUser() != null){
 
 
-                if(userPreference.getUserPreference("user")==null){
+                if(UserPreference.getUserPreference("user")==null){
                     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                             .readTimeout(60, TimeUnit.SECONDS)
                             .connectTimeout(60, TimeUnit.SECONDS)
@@ -215,7 +215,7 @@ public class HomeFragment extends Fragment {
                             if (response.isSuccessful()){
 
                                 UserModel userModel = response.body();
-                                userPreference.setUserPreference("user", userModel);
+                                UserPreference.setUserPreference("user", userModel);
                                 DBQueries.loadCartList(itemView.getContext(),loadingDialog,false,MainActivity.badgeCount,new TextView(itemView.getContext()),false,null);
 
 //                                if (DBQueries.lists.size() == 0) {
@@ -236,7 +236,7 @@ public class HomeFragment extends Fragment {
 
                                 HomeFragment.maintance(true);
                                 UserPreference userPreference = new UserPreference(itemView.getContext());
-                                userPreference.setUserPreference("user", null);
+                                UserPreference.setUserPreference("user", null);
 
                                 loadingDialog.dismiss();
 
@@ -350,11 +350,11 @@ public class HomeFragment extends Fragment {
 
 
             UserPreference userPreference = new UserPreference(context);
-            userPreference.setUserPreference("user",null);
+            UserPreference.setUserPreference("user",null);
             if (FirebaseAuth.getInstance().getCurrentUser() != null){
 
 
-                if(userPreference.getUserPreference("user")==null){
+                if(UserPreference.getUserPreference("user")==null){
                     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                             .readTimeout(60, TimeUnit.SECONDS)
                             .connectTimeout(60, TimeUnit.SECONDS)
@@ -377,7 +377,7 @@ public class HomeFragment extends Fragment {
 
                                 MainActivity.navView.setVisibility(View.VISIBLE);
                                 UserModel userModel = response.body();
-                                userPreference.setUserPreference("user", userModel);
+                                UserPreference.setUserPreference("user", userModel);
                                 DBQueries.loadCartList(context,loadingDialog,false,MainActivity.badgeCount,new TextView(context),false,null);
                                 DBQueries.loadAddresses(context,loadingDialog,false,0,true);
                                 DBQueries.loadRatingList(context,loadingDialog);
@@ -389,7 +389,7 @@ public class HomeFragment extends Fragment {
                                 HomeFragment.maintance(false);
 
                                 UserPreference userPreference = new UserPreference(context);
-                                userPreference.setUserPreference("user", null);
+                                UserPreference.setUserPreference("user", null);
 
                                 loadingDialog.dismiss();
 

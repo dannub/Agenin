@@ -242,7 +242,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             // JSON here
         }
         catch (Exception e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
 
@@ -370,10 +370,10 @@ public class ProductDetailActivity extends AppCompatActivity {
         ///sign dialog
 
         UserPreference userPreference = new UserPreference(ProductDetailActivity.this);
-        userPreference.setUserPreference("user",null);
+        UserPreference.setUserPreference("user",null);
         if (currentUser!=null){
 
-            if(userPreference.getUserPreference("user")==null){
+            if(UserPreference.getUserPreference("user")==null){
                 DBQueries.requestLogin(ProductDetailActivity.this,currentUser.getEmail(),currentUser.getUid(),loadingDialog,false);
             }
         }
@@ -502,12 +502,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 });
 
 
-                if (DBQueries.cartlist.contains(productID)){
-                    ALREADY_ADDED_TO_CART = true;
-
-                }else {
-                    ALREADY_ADDED_TO_CART = false;
-                }
+                ALREADY_ADDED_TO_CART = DBQueries.cartlist.contains(productID);
                 if (product.getIn_stock()){
                     keranjangImg.setVisibility(View.VISIBLE);
                     buyNowBtn.setVisibility(View.VISIBLE);
@@ -521,7 +516,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             }else {
 
                                 UserPreference userPreference = new UserPreference(ProductDetailActivity.this);
-                                UserModel user = userPreference.getUserPreference("user");
+                                UserModel user = UserPreference.getUserPreference("user");
 
                                 if (user.getStatus()){
                                     loadingDialog.show();
@@ -541,7 +536,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                         } else {
                                             addToCartBtn.setEnabled(true);
                                             final Map<String, Object> addProduct = new HashMap<>();
-                                            addProduct.put("product_ID_" + String.valueOf(DBQueries.cartlist.size()), productID);
+                                            addProduct.put("product_ID_" + DBQueries.cartlist.size(), productID);
                                             Gson gson = new GsonBuilder()
                                                     .setLenient()
                                                     .create();
@@ -606,7 +601,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                                     Log.e("debug", "onFailure: ERROR > " + t.toString());
                                                     running_cart_query = false;
                                                     Toast.makeText(ProductDetailActivity.this, "Jaringan Dalam Perbaikan", Toast.LENGTH_SHORT).show();
-                                                    if (userPreference.getUserPreference("user") == null) {
+                                                    if (UserPreference.getUserPreference("user") == null) {
                                                         DBQueries.requestLogin(ProductDetailActivity.this, currentUser.getEmail(), currentUser.getUid(), loadingDialog, false);
                                                     }
                                                     loadingDialog.dismiss();
@@ -648,7 +643,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             signInDialog.show();
                         }else {
                             UserPreference userPreference = new UserPreference(ProductDetailActivity.this);
-                            UserModel user = userPreference.getUserPreference("user");
+                            UserModel user = UserPreference.getUserPreference("user");
 
                             if (user.getStatus()){
                                 MainActivity.showCart = false;
@@ -662,7 +657,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                     DeliveryActivity.cartItemModelList.add(new CartItemModel(CartItemModel.CART_ITEM,
                                             "",
                                             productID,
-                                            DBQueries.url+product.getImage().get(0).toString()
+                                            DBQueries.url+ product.getImage().get(0)
                                             , product.getTitle_product()
                                             , product.getPrice()
                                             , (int) Integer.valueOf(product.getMin_order())
@@ -782,7 +777,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                 signInDialog.show();
                             }else {
                                 UserPreference userPreference = new UserPreference(ProductDetailActivity.this);
-                                UserModel user = userPreference.getUserPreference("user");
+                                UserModel user = UserPreference.getUserPreference("user");
 
                                 if (user.getStatus()){
                                     if (starPosition!= initialRating) {
@@ -850,7 +845,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                                                             rating.setText(String.valueOf(Integer.parseInt(rating.getText().toString()) + 1));
 
 
-                                                            totalRatings.setText("Dari "+ String.valueOf(product.getTotal_ratings()+1)+" ulasan");
+                                                            totalRatings.setText("Dari "+ (product.getTotal_ratings() + 1) +" ulasan");
 
                                                             totalRatingsFigure.setText(String.valueOf(product.getTotal_ratings()+1));
 
@@ -921,7 +916,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                             signInDialog.show();
                         }else {
                             UserPreference userPreference = new UserPreference(ProductDetailActivity.this);
-                            UserModel user = userPreference.getUserPreference("user");
+                            UserModel user = UserPreference.getUserPreference("user");
 
                             if (user.getStatus()){
                                 if (!running_wishlist_query) {

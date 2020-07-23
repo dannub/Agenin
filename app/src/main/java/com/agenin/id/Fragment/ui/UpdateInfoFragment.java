@@ -355,7 +355,7 @@ public class UpdateInfoFragment extends Fragment {
                         .setLenient()
                         .create();
                 UserPreference userPreference = new UserPreference(getContext());
-                UserModel user = userPreference.getUserPreference("user");
+                UserModel user = UserPreference.getUserPreference("user");
 
                 final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                         .addInterceptor(new Interceptor() {
@@ -385,7 +385,7 @@ public class UpdateInfoFragment extends Fragment {
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
                         if(!response.isSuccessful()){
                             try {
-                                Log.i("response", String.valueOf(response.errorBody().string()));
+                                Log.i("response", response.errorBody().string());
                                 Toast.makeText(getContext(), (CharSequence) response.errorBody().string(),Toast.LENGTH_SHORT).show();
 
                             } catch (IOException e) {
@@ -401,7 +401,7 @@ public class UpdateInfoFragment extends Fragment {
                         Glide.with(getContext()).load(response.body().getProfil()).circleCrop().into(circleImageView);
 
                         UserPreference userPreference = new UserPreference(getContext());
-                        userPreference.setUserPreference("user", response.body());
+                        UserPreference.setUserPreference("user", response.body());
                         if (!response.body().getProfil().equals("")) {
                             Glide.with(getContext()).load(DBQueries.url + response.body().getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(ProfilFragment.profileview);
 
@@ -438,7 +438,7 @@ public class UpdateInfoFragment extends Fragment {
                     .setLenient()
                     .create();
             UserPreference userPreference = new UserPreference(getContext());
-            UserModel user = userPreference.getUserPreference("user");
+            UserModel user = UserPreference.getUserPreference("user");
 
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
@@ -470,7 +470,7 @@ public class UpdateInfoFragment extends Fragment {
 
                     if(!response.isSuccessful()){
                         try {
-                            Log.i("response", String.valueOf(response.errorBody().string()));
+                            Log.i("response", response.errorBody().string());
                             Toast.makeText(getContext(), (CharSequence) response.errorBody().string(),Toast.LENGTH_SHORT).show();
 
                         } catch (IOException e) {
@@ -485,7 +485,7 @@ public class UpdateInfoFragment extends Fragment {
 
 
                     UserPreference userPreference = new UserPreference(getContext());
-                    userPreference.setUserPreference("user", response.body());
+                    UserPreference.setUserPreference("user", response.body());
                     ((Activity) getContext()).finish();
                     Toast.makeText((getContext()), "Update Berhasil!", Toast.LENGTH_SHORT).show();
                     loadingDialog.dismiss();
@@ -559,7 +559,7 @@ public class UpdateInfoFragment extends Fragment {
 
 
             UserPreference userPreference = new UserPreference(context);
-            UserModel user = userPreference.getUserPreference("user");
+            UserModel user = UserPreference.getUserPreference("user");
 
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
@@ -612,12 +612,12 @@ public class UpdateInfoFragment extends Fragment {
 
 
                     UserPreference userPreference = new UserPreference(context);
-                    userPreference.setUserPreference("user", response.body());
+                    UserPreference.setUserPreference("user", response.body());
                    if (!response.body().getProfil().equals("")) {
-                     Glide.with(UpdateUserInfoActivity.profilFragment.getContext()).load(DBQueries.url + response.body().getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(UpdateUserInfoActivity.profilFragment.profileview);
+                     Glide.with(UpdateUserInfoActivity.profilFragment.getContext()).load(DBQueries.url + response.body().getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(ProfilFragment.profileview);
 
                     } else {
-                        UpdateUserInfoActivity.profilFragment.profileview.setImageDrawable(UpdateUserInfoActivity.profilFragment.getContext().getResources().getDrawable(R.drawable.profil2));
+                        ProfilFragment.profileview.setImageDrawable(UpdateUserInfoActivity.profilFragment.getContext().getResources().getDrawable(R.drawable.profil2));
 
                     }
 
@@ -774,7 +774,6 @@ public class UpdateInfoFragment extends Fragment {
                         return Environment.getExternalStorageDirectory() + "/" + split[1];
                     }
 
-                    // TODO handle non-primary volumes
                 }
                 // DownloadsProvider
                 else if (isDownloadsDocument(uri)) {

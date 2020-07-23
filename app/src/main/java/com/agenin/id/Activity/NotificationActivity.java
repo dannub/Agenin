@@ -152,7 +152,7 @@ public class NotificationActivity extends AppCompatActivity {
                             .create();
 
                     UserPreference userPreference = new UserPreference(NotificationActivity.this);
-                    UserModel user = userPreference.getUserPreference("user");
+                    UserModel user = UserPreference.getUserPreference("user");
 
                     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                             .addInterceptor(new Interceptor() {

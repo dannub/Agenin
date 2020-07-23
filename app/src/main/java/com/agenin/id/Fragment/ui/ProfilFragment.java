@@ -218,11 +218,11 @@ public class ProfilFragment extends Fragment {
         if (networkInfo !=null && networkInfo.isConnected()==true ) {
 
             UserPreference userPreference = new UserPreference(getContext());
-            userPreference.setUserPreference("user", null);
+            UserPreference.setUserPreference("user", null);
             if (user != null) {
 
 
-                if (userPreference.getUserPreference("user") == null) {
+                if (UserPreference.getUserPreference("user") == null) {
 
                     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                             .readTimeout(60, TimeUnit.SECONDS)
@@ -245,7 +245,7 @@ public class ProfilFragment extends Fragment {
                             if (response.isSuccessful()) {
 
                                 userModel = response.body();
-                                userPreference.setUserPreference("user", userModel);
+                                UserPreference.setUserPreference("user", userModel);
 
                                 DBQueries.loadAddresses(getContext(), loadingDialog, false, 0, false);
 
@@ -294,7 +294,7 @@ public class ProfilFragment extends Fragment {
                             } else {
 
                                 UserPreference userPreference = new UserPreference(getContext());
-                                userPreference.setUserPreference("user", null);
+                                UserPreference.setUserPreference("user", null);
 
                                 loadingDialog.dismiss();
 
@@ -504,7 +504,7 @@ public class ProfilFragment extends Fragment {
         }else if(bulan.equals("Des")){
             bulan = "Desember";
         }
-        hasil = bulan+" "+hasil.substring(3,hasil.length());
+        hasil = bulan+" "+hasil.substring(3);
         return hasil;
     }
 

@@ -51,10 +51,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if (networkInfo !=null && networkInfo.isConnected()==true) {
                     FirebaseUser currentUser = firebaseAuth.getCurrentUser();
                     UserPreference userPreference = new UserPreference(SplashScreenActivity.this);
-                    userPreference.setUserPreference("user",null);
+                    UserPreference.setUserPreference("user",null);
                     if (currentUser != null) {
 
-                            if(userPreference.getUserPreference("user")==null){
+                            if(UserPreference.getUserPreference("user")==null){
                                 DBQueries.requestLogin(SplashScreenActivity.this,currentUser.getEmail(),currentUser.getUid(),null,true);
                             }else {
                                 Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);

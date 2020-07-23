@@ -56,7 +56,6 @@ public class CartActivity extends AppCompatActivity {
     private ConnectivityManager connectivityManager;
     private NetworkInfo networkInfo;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +64,9 @@ public class CartActivity extends AppCompatActivity {
         loadingDialog = new Dialog(CartActivity.this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        }
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         //loading dialog
 
@@ -116,7 +117,7 @@ public class CartActivity extends AppCompatActivity {
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
         if (networkInfo !=null && networkInfo.isConnected()==true ) {
-            DBQueries.updateCartList(this, loadingDialog,true,  MainActivity.mainActivity.badgeCount,totalAmount,false,null,true,false);
+            DBQueries.updateCartList(this, loadingDialog,true, MainActivity.badgeCount,totalAmount,false,null,true,false);
 
         }else {
             noData.setVisibility(View.GONE);
@@ -135,7 +136,7 @@ public class CartActivity extends AppCompatActivity {
 
 
 
-        DBQueries.loadCartList(this, loadingDialog,true,  MainActivity.mainActivity.badgeCount,totalAmount,false,null);
+        DBQueries.loadCartList(this, loadingDialog,true, MainActivity.badgeCount,totalAmount,false,null);
 
 
 
@@ -155,7 +156,7 @@ public class CartActivity extends AppCompatActivity {
     public void onBackPressed() {
         cartActivity = null;
         if (networkInfo !=null && networkInfo.isConnected()==true) {
-            DBQueries.updateCartList(this, null,true,  MainActivity.mainActivity.badgeCount,totalAmount,false,null,true,true);
+            DBQueries.updateCartList(this, null,true, MainActivity.badgeCount,totalAmount,false,null,true,true);
         }
         finish();
         super.onBackPressed();
@@ -168,7 +169,7 @@ public class CartActivity extends AppCompatActivity {
         if (id == android.R.id.home){
             cartActivity = null;
             if (networkInfo !=null && networkInfo.isConnected()==true) {
-                DBQueries.updateCartList(this, null,true,  MainActivity.mainActivity.badgeCount,totalAmount,false,null,true,true);
+                DBQueries.updateCartList(this, null,true, MainActivity.badgeCount,totalAmount,false,null,true,true);
             }
             finish();
 

@@ -164,7 +164,7 @@ public class DBQueries {
 
                     UserModel userModel = response.body();
                     UserPreference userPreference = new UserPreference(context);
-                    userPreference.setUserPreference("user", userModel);
+                    UserPreference.setUserPreference("user", userModel);
                     if(isSplash){
                         Intent mainIntent = new Intent(context, MainActivity.class);
                         // MainActivity.showCart = false;
@@ -181,7 +181,7 @@ public class DBQueries {
                 } else {
 
                     UserPreference userPreference = new UserPreference(context);
-                    userPreference.setUserPreference("user", null);
+                    UserPreference.setUserPreference("user", null);
                     if(isSplash){
                         Intent mainIntent = new Intent(context, MainActivity.class);
                         // MainActivity.showCart = false;
@@ -229,7 +229,7 @@ public class DBQueries {
             });
         }
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -409,7 +409,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -497,7 +497,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -577,11 +577,7 @@ public class DBQueries {
                                             ,String.valueOf(ongkir)
                                     ));
 
-                                    if (cartlist.contains(ProductDetailActivity.productID)) {
-                                        ProductDetailActivity.ALREADY_ADDED_TO_CART = true;
-                                    } else {
-                                        ProductDetailActivity.ALREADY_ADDED_TO_CART = false;
-                                    }
+                                    ProductDetailActivity.ALREADY_ADDED_TO_CART = cartlist.contains(ProductDetailActivity.productID);
                                 }
 
                                 if (loadProductData) {
@@ -765,7 +761,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -845,11 +841,7 @@ public class DBQueries {
                                             ,String.valueOf(ongkir)
                                     ));
 
-                                    if (cartlist.contains(ProductDetailActivity.productID)) {
-                                        ProductDetailActivity.ALREADY_ADDED_TO_CART = true;
-                                    } else {
-                                        ProductDetailActivity.ALREADY_ADDED_TO_CART = false;
-                                    }
+                                    ProductDetailActivity.ALREADY_ADDED_TO_CART = cartlist.contains(ProductDetailActivity.productID);
                                 }
 
                                 if (loadProductData) {
@@ -1033,7 +1025,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -1105,11 +1097,7 @@ public class DBQueries {
                                             ,String.valueOf(ongkir)
                                     ));
 
-                                    if (cartlist.contains(ProductDetailActivity.productID)) {
-                                        ProductDetailActivity.ALREADY_ADDED_TO_CART = true;
-                                    } else {
-                                        ProductDetailActivity.ALREADY_ADDED_TO_CART = false;
-                                    }
+                                    ProductDetailActivity.ALREADY_ADDED_TO_CART = cartlist.contains(ProductDetailActivity.productID);
                                 }
                                 if (loadProductData) {
 
@@ -1291,7 +1279,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -1377,7 +1365,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -1485,7 +1473,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -1637,7 +1625,7 @@ public class DBQueries {
                     .create();
 
             UserPreference userPreference = new UserPreference(context);
-            UserModel user = userPreference.getUserPreference("user");
+            UserModel user = UserPreference.getUserPreference("user");
 
             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(new Interceptor() {
@@ -1736,7 +1724,7 @@ public class DBQueries {
                 .create();
 
         UserPreference userPreference = new UserPreference(context);
-        UserModel user = userPreference.getUserPreference("user");
+        UserModel user = UserPreference.getUserPreference("user");
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
@@ -2238,7 +2226,7 @@ public class DBQueries {
 
 
         UserPreference userPreference = new UserPreference(context);
-        userPreference.setUserPreference("user", null);
+        UserPreference.setUserPreference("user", null);
 
     }
 

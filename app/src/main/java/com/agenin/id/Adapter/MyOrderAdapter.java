@@ -206,7 +206,7 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Viewhold
                                             .create();
 
                                     UserPreference userPreference = new UserPreference(itemView.getContext());
-                                    UserModel user = userPreference.getUserPreference("user");
+                                    UserModel user = UserPreference.getUserPreference("user");
 
                                     final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                             .addInterceptor(new Interceptor() {

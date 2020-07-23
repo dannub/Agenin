@@ -51,7 +51,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  */
 public class SignInFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     FButton signInBtn;
     private TextView dontHaveAnAccount;
@@ -296,7 +295,7 @@ public class SignInFragment extends Fragment {
                     button.setEnabled(true);
                     UserModel userModel = response.body();
                     UserPreference userPreference = new UserPreference(context);
-                    userPreference.setUserPreference("user", userModel);
+                    UserPreference.setUserPreference("user", userModel);
                     SignInFragment.isLogin = true;
                     Intent intent = new Intent(context, MainActivity.class);
                     context.startActivity(intent);

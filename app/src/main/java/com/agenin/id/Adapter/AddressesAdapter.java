@@ -218,7 +218,7 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.View
                                 .create();
 
                         UserPreference userPreference = new UserPreference(context);
-                        UserModel user = userPreference.getUserPreference("user");
+                        UserModel user = UserPreference.getUserPreference("user");
 
                         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                 .addInterceptor(new Interceptor() {
@@ -259,7 +259,7 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.View
                                     DBQueries.selectedAddress = finalSelected - 1;
                                     DBQueries.addressModelList.get(finalSelected - 1).setSelected(true);
                                 }
-                                MyAddressesActivity.addressesSaved.setText(" "+ String.valueOf(DBQueries.addressModelList.size())+" saved addresses ");
+                                MyAddressesActivity.addressesSaved.setText(" "+ DBQueries.addressModelList.size() +" saved addresses ");
                                 notifyDataSetChanged();
                                 loadingDialog.dismiss();
                                 ///didalem

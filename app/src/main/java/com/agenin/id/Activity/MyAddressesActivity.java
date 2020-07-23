@@ -86,7 +86,7 @@ public class MyAddressesActivity extends AppCompatActivity {
         loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
-                addressesSaved.setText(" "+ String.valueOf(DBQueries.addressModelList.size())+" saved addresses ");
+                addressesSaved.setText(" "+ DBQueries.addressModelList.size() +" saved addresses ");
             }
         });
         //loading dialog
@@ -131,7 +131,7 @@ public class MyAddressesActivity extends AppCompatActivity {
 
                         previousAddress = DBQueries.selectedAddress;
                         UserPreference userPreference = new UserPreference(MyAddressesActivity.this);
-                        UserModel user = userPreference.getUserPreference("user");
+                        UserModel user = UserPreference.getUserPreference("user");
 
                         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                 .addInterceptor(new Interceptor() {
@@ -213,7 +213,7 @@ public class MyAddressesActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        addressesSaved.setText(" "+ String.valueOf(DBQueries.addressModelList.size())+" alamat tersimpan");
+        addressesSaved.setText(" "+ DBQueries.addressModelList.size() +" alamat tersimpan");
 
     }
 

@@ -2,7 +2,7 @@ package com.agenin.id.Interface;
 
 public interface CallBacks {
     void callbackObserver(Object obj);
-    public interface playerCallBack {
+    interface playerCallBack {
         void onItemClickOnItem(Integer albumId);
         void onPlayingEnd();
     }

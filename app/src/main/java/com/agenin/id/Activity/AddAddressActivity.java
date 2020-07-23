@@ -84,7 +84,9 @@ public class AddAddressActivity extends AppCompatActivity {
         loadingDialog = new Dialog(AddAddressActivity.this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        }
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //loading dialog
@@ -197,7 +199,7 @@ public class AddAddressActivity extends AppCompatActivity {
                                                     .create();
 
                                             UserPreference userPreference = new UserPreference(AddAddressActivity.this);
-                                            UserModel user = userPreference.getUserPreference("user");
+                                            UserModel user = UserPreference.getUserPreference("user");
 
                                             final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                                                     .addInterceptor(new Interceptor() {
