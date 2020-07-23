@@ -5,15 +5,18 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -34,6 +37,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import com.agenin.id.Activity.MainActivity;
+import com.agenin.id.Activity.UpdateUserInfoActivity;
 import com.agenin.id.DBQueries;
 import com.agenin.id.Interface.UserClient;
 import com.agenin.id.Model.UserModel;
@@ -41,6 +45,7 @@ import com.agenin.id.Preference.UserPreference;
 import com.agenin.id.Progress.ProgressRequestBody;
 import com.agenin.id.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,6 +70,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -146,10 +152,11 @@ public class UpdateInfoFragment extends Fragment {
          email = getArguments().getString("Email");
          photo = getArguments().getString("Photo");
 
-         if (photo.equals("")){
-            // Glide.with(getContext()).load(getResources().getDrawable(R.drawable.profil2)).into(circleImageView);
+
+         if (photo.isEmpty()){
+             Glide.with(getContext()).load(getResources().getDrawable(R.drawable.profil2)).into(circleImageView);
          }else {
-             Glide.with(getContext()).load(photo).into(circleImageView);
+             Glide.with(getContext()).load(photo).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(circleImageView);
          }
         nameField.setText(name);
         emailField.setText(email);
@@ -158,7 +165,7 @@ public class UpdateInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 isHapus = false;
-
+                updatePhoto = true;
                 if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.M) {
                     if (getContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 
@@ -336,7 +343,7 @@ public class UpdateInfoFragment extends Fragment {
 
                 Map<String, Object> updateData = new HashMap<>();
                 updateData.put("email",emailField.getText().toString());
-                updateData.put("fullname",nameField.getText().toString());
+                updateData.put("name",nameField.getText().toString());
                 uploadFile(imageUri,bitmap,getContext(),updateData,loadingDialog);
 
             }else {
@@ -376,14 +383,35 @@ public class UpdateInfoFragment extends Fragment {
                 call.enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        loadingDialog.dismiss();
+                        if(!response.isSuccessful()){
+                            try {
+                                Log.i("response", String.valueOf(response.errorBody().string()));
+                                Toast.makeText(getContext(), (CharSequence) response.errorBody().string(),Toast.LENGTH_SHORT).show();
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (loadingDialog!=null) {
+                                loadingDialog.dismiss();
+                            }
+                            return;
+
+                        }
 
                         Glide.with(getContext()).load(response.body().getProfil()).circleCrop().into(circleImageView);
 
                         UserPreference userPreference = new UserPreference(getContext());
                         userPreference.setUserPreference("user", response.body());
+                        if (!response.body().getProfil().equals("")) {
+                            Glide.with(getContext()).load(DBQueries.url + response.body().getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(ProfilFragment.profileview);
+
+                        } else {
+                            ProfilFragment.profileview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.profil2));
+
+                        }
                         ((Activity) getContext()).finish();
                         Toast.makeText((getContext()), "Update Berhasil!", Toast.LENGTH_SHORT).show();
+                        loadingDialog.dismiss();
 
 
                     }
@@ -439,13 +467,28 @@ public class UpdateInfoFragment extends Fragment {
             call.enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    loadingDialog.dismiss();
+
+                    if(!response.isSuccessful()){
+                        try {
+                            Log.i("response", String.valueOf(response.errorBody().string()));
+                            Toast.makeText(getContext(), (CharSequence) response.errorBody().string(),Toast.LENGTH_SHORT).show();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                       if (loadingDialog!=null) {
+                            loadingDialog.dismiss();
+                        }
+                        return;
+
+                    }
 
 
                     UserPreference userPreference = new UserPreference(getContext());
                     userPreference.setUserPreference("user", response.body());
                     ((Activity) getContext()).finish();
                     Toast.makeText((getContext()), "Update Berhasil!", Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
 
 
                 }
@@ -470,7 +513,7 @@ public class UpdateInfoFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void uploadFile(final Uri fileUri, final Bitmap bitmap, final Context context, Map<String, Object> userdata, final Dialog dialog) {
 
-        if (bitmap!=null){
+      if (bitmap!=null){
 
 
 
@@ -478,7 +521,7 @@ public class UpdateInfoFragment extends Fragment {
             String name,email;
 
             email =(String)userdata.get("email");
-            name =  (String)userdata.get("fullname");
+            name =  (String)userdata.get("name");
 
 
             HashMap<String, RequestBody> map = new HashMap<>();
@@ -489,7 +532,9 @@ public class UpdateInfoFragment extends Fragment {
 
             File file;
 
-            String id = DocumentsContract.getDocumentId(fileUri);
+
+
+//            String id = DocumentsContract.getDocumentId(fileUri);
             InputStream inputStream = null;
             try {
                 inputStream = context.getContentResolver().openInputStream(fileUri);
@@ -497,11 +542,13 @@ public class UpdateInfoFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            file = new File(context.getCacheDir().getAbsolutePath()+"/"+id+"."+getFileExtension(fileUri,context));
+            file = new File(getPath(context,fileUri));
             writeFile(inputStream, file);
 
 
-
+            Gson gson = new GsonBuilder()
+                    .setLenient()
+                    .create();
 
 //            ProgressRequestBody fileBody = new ProgressRequestBody(file,context.getContentResolver().getType(fileUri), (ProgressRequestBody.UploadCallbacks) context);
             RequestBody filePart = RequestBody.create(
@@ -510,9 +557,7 @@ public class UpdateInfoFragment extends Fragment {
             );
             MultipartBody.Part body = MultipartBody.Part.createFormData("profil",file.getName(),filePart);
 
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
+
             UserPreference userPreference = new UserPreference(context);
             UserModel user = userPreference.getUserPreference("user");
 
@@ -529,11 +574,11 @@ public class UpdateInfoFragment extends Fragment {
                     .readTimeout(2, TimeUnit.MINUTES)
                     .connectTimeout(2, TimeUnit.MINUTES)
                     .build();
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(DBQueries.url)
-                    .client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .build();
+          Retrofit retrofit = new Retrofit.Builder()
+                  .baseUrl(DBQueries.url)
+                  .client(okHttpClient)
+                  .addConverterFactory(GsonConverterFactory.create(gson))
+                  .build();
 //            Retrofit.Builder builder = new Retrofit.Builder()
 //                    .baseUrl(DBQueries.url)
 //                    .client(okHttpClient)
@@ -549,16 +594,38 @@ public class UpdateInfoFragment extends Fragment {
             call.enqueue(new Callback<UserModel>() {
                 @Override
                 public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                    dialog.dismiss();
+                    if(!response.isSuccessful()){
+                        try {
+                            Log.i("response", response.errorBody().string());
+                            Toast.makeText(getContext(), (CharSequence) response.errorBody().string(),Toast.LENGTH_SHORT).show();
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        if (dialog!=null) {
+                            dialog.dismiss();
+                        }
+                        return;
+
+                    }
+
 
 
                     UserPreference userPreference = new UserPreference(context);
                     userPreference.setUserPreference("user", response.body());
-                 //   ((Activity) getContext()).finish();
+                   if (!response.body().getProfil().equals("")) {
+                     Glide.with(UpdateUserInfoActivity.profilFragment.getContext()).load(DBQueries.url + response.body().getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(UpdateUserInfoActivity.profilFragment.profileview);
+
+                    } else {
+                        UpdateUserInfoActivity.profilFragment.profileview.setImageDrawable(UpdateUserInfoActivity.profilFragment.getContext().getResources().getDrawable(R.drawable.profil2));
+
+                    }
+
+                    //   ((Activity) getContext()).finish();
                     ((Activity) context).finish();
                     Toast.makeText((context), "Update Berhasil!", Toast.LENGTH_SHORT).show();
 
-
+                    dialog.dismiss();
                 }
 
                 @Override
@@ -658,10 +725,11 @@ public class UpdateInfoFragment extends Fragment {
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getApplicationContext().getContentResolver(), data.getData());
+                imageUri = Objects.requireNonNull(data).getData();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            imageUri = data.getData();
+
             Glide.with(getContext()).load(imageUri).into(circleImageView);
         }
     }
@@ -682,4 +750,150 @@ public class UpdateInfoFragment extends Fragment {
         }
 
     }
+
+
+
+
+    public static String getPath(final Context context, final Uri uri) {
+
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+                // ExternalStorageProvider
+                if (isExternalStorageDocument(uri)) {
+                    String docId = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        docId = DocumentsContract.getDocumentId(uri);
+                    }
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    if ("primary".equalsIgnoreCase(type)) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    }
+
+                    // TODO handle non-primary volumes
+                }
+                // DownloadsProvider
+                else if (isDownloadsDocument(uri)) {
+
+                    String id = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        id = DocumentsContract.getDocumentId(uri);
+                    }
+                    final Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                    return getDataColumn(context, contentUri, null, null);
+                }
+                // MediaProvider
+                else if (isMediaDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    Uri contentUri = null;
+                    if ("image".equals(type)) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("video".equals(type)) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("audio".equals(type)) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                    }
+
+                    final String selection = "_id=?";
+                    final String[] selectionArgs = new String[] {
+                            split[1]
+                    };
+
+                    return getDataColumn(context, contentUri, selection, selectionArgs);
+                }
+            }
+            // MediaStore (and general)
+            else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+                // Return the remote address
+                if (isGooglePhotosUri(uri))
+                    return uri.getLastPathSegment();
+
+                return getDataColumn(context, uri, null, null);
+            }
+            // File
+            else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                return uri.getPath();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @param selection (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
+
+
 }

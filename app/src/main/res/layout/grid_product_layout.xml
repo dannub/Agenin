@@ -1,114 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:elevation="3dp">
 
-    <Button
-        android:id="@+id/grid_product_viewall_layout_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:text="Semua"
-        android:textColor="@color/colorAccent"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginRight="16dp" />
-
-    <GridLayout
-        android:id="@+id/grid_layout"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:columnCount="2"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/grid_product_viewall_layout_btn">
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/grid_product_layout_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="All Product"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-        <include
-            layout="@layout/horizontal_scroll_item_layout"
-            android:layout_margin="8dp"
-            android:background="@drawable/slider_background"
-            android:elevation="3dp"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_columnWeight="1" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include
-            layout="@layout/horizontal_scroll_item_layout"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_columnWeight="1"
-            android:layout_margin="8dp"
-            android:background="@drawable/slider_background"
-            android:elevation="3dp"
+
+    <LinearLayout
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grid_view"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             />
+<!--        <GridView-->
+<!--            android:id="@+id/grid_view"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:alwaysDrawnWithCache="true"-->
+<!--            android:clipChildren="true"-->
+<!--            android:horizontalSpacing="8dp"-->
+<!--            android:numColumns="auto_fit"-->
+<!--            android:stretchMode="columnWidth"-->
+<!--            android:verticalSpacing="8dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="parent"-->
+<!--            tools:visibility="visible" />-->
 
-        <include
-            layout="@layout/horizontal_scroll_item_layout"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/slider_background"
-            android:elevation="3dp"
-            android:layout_columnWeight="1" />
+    </LinearLayout>
 
-        <include
-            layout="@layout/horizontal_scroll_item_layout"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_margin="8dp"
-            android:background="@drawable/slider_background"
-            android:elevation="3dp"
-            android:layout_columnWeight="1" />
 
-        <include
-            layout="@layout/horizontal_scroll_item_layout"
-            android:layout_margin="8dp"
-            android:background="@drawable/slider_background"
-            android:elevation="3dp"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_columnWeight="1" />
 
-        <include
-            layout="@layout/horizontal_scroll_item_layout"
-            android:layout_margin="8dp"
-            android:background="@drawable/slider_background"
-            android:elevation="3dp"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_columnWeight="1" />
+<!--    <GridLayout-->
+<!--        android:id="@+id/grid_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginLeft="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginRight="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:columnCount="2"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/grid_product_viewall_layout_btn">-->
 
-    </GridLayout>
 
-    <TextView
-        android:id="@+id/grid_product_layout_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="All Product"
-        android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/grid_product_viewall_layout_btn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="24dp" />
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--        <include-->
+<!--            layout="@layout/horizontal_scroll_item_layout"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="200dp"-->
+<!--            android:layout_columnWeight="1"-->
+<!--            android:layout_margin="8dp"-->
+<!--            android:background="@drawable/slider_background"-->
+<!--            android:elevation="3dp" />-->
+
+<!--    </GridLayout>-->
+
+
+
+</LinearLayout>

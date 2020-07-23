@@ -101,7 +101,8 @@
                             android:shadowRadius="0.01"
                             android:text="Lupa Password"
                             android:textAlignment="viewEnd"
-                            android:textColor="@color/colorAccent1" />
+                            android:textColor="@color/colorAccent1"
+                            android:gravity="end" />
                     </LinearLayout>
 
 

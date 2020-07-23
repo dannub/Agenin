@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_margin="4dp"
+    android:orientation="vertical"
+    android:layout_gravity="center"
     android:background="@drawable/slider_background"
-    android:elevation="3dp">
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:gravity="center"
+    android:layout_marginBottom="8dp"
+    android:elevation="3dp"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    android:layout_columnWeight="1">
 
     <ImageView
         android:id="@+id/hs_product_image"
@@ -23,11 +30,13 @@
 
     <TextView
         android:id="@+id/hs_product_title"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:minLines="4"
+        android:textAllCaps="false"
         android:layout_marginBottom="8dp"
         android:text="Ban Terkenal"
         android:textAlignment="center"
@@ -40,36 +49,41 @@
         app:layout_constraintTop_toBottomOf="@+id/hs_product_image"
         android:gravity="center_horizontal" />
 
-    <TextView
-        android:id="@+id/cutted_price"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="0dp"
-        android:text="Rp.25000"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/hs_product_price"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center_horizontal" />
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/price_cut"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="@+id/cutted_price"
+            app:layout_constraintEnd_toEndOf="@+id/cutted_price"
+            app:layout_constraintStart_toStartOf="@+id/cutted_price"
+            app:layout_constraintTop_toTopOf="@+id/cutted_price" />
 
-    <View
-        android:id="@+id/price_cut"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="@+id/cutted_price"
-        app:layout_constraintEnd_toEndOf="@+id/cutted_price"
-        app:layout_constraintStart_toStartOf="@+id/cutted_price"
-        app:layout_constraintTop_toTopOf="@+id/cutted_price" />
+        <TextView
+            android:id="@+id/cutted_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="0dp"
+            android:text="Rp.25000"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="10sp"
+            android:textStyle="bold"
+           app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center_horizontal" />
 
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:id="@+id/hs_product_price"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -82,4 +96,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:gravity="center_horizontal" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

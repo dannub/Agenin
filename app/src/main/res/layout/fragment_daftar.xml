@@ -7,9 +7,6 @@
     tools:context=".Fragment.ui.DaftarFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:theme="@style/Form">
@@ -18,9 +15,6 @@
             android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -32,17 +26,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
 
                     <LinearLayout
                         android:id="@+id/linearLayout7"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/slider_background"
                         android:elevation="6dp"
                         android:orientation="vertical"
@@ -51,41 +49,40 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:text="Upload bukti pembayaran disini dengan menekan icon plus (+) di bawah serta mengisi detail pembayaran"
                             android:textAlignment="center"
                             android:textColor="@color/colorAccent1"
-                            android:text="Upload bukti pembayaran disini dengan menekan icon plus (+) di bawah serta mengisi detail pembayaran"
-                            />
-
-
+                            android:gravity="center_horizontal" />
 
 
                     </LinearLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_marginBottom="16dp"
-                        android:layout_marginTop="30dp"
                         android:layout_width="match_parent"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_height="wrap_content">
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="16dp">
+
                         <ImageView
 
                             android:id="@+id/imageView12"
+                            android:layout_width="300dp"
+                            android:layout_height="300dp"
                             android:layout_gravity="center"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:layout_width="300dp"
-                            android:layout_height="300dp"
                             app:srcCompat="@drawable/icon_bukti" />
 
                         <ImageView
-                            android:elevation="5dp"
                             android:id="@+id/image_add_payment"
-                            android:backgroundTint="@color/colorAccent1"
                             android:layout_width="80dp"
                             android:layout_height="80dp"
+                            android:backgroundTint="@color/colorAccent1"
+                            android:elevation="5dp"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView12"
                             app:layout_constraintEnd_toEndOf="@+id/imageView12"
                             app:srcCompat="@mipmap/add" />
@@ -98,14 +95,13 @@
                         android:id="@+id/linearLayout6"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"
-                        android:layout_gravity="center"
                         android:background="@drawable/slider_background"
                         android:elevation="6dp"
                         android:orientation="vertical"
                         android:padding="8dp">
-
 
 
                         <com.google.android.material.textfield.TextInputLayout
@@ -113,11 +109,10 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp"
-                            >
+                            android:layout_marginBottom="16dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/a.n"
@@ -132,11 +127,10 @@
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
                             android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginEnd="16dp"
-                            android:layout_marginBottom="16dp"
-                            >
+                            android:layout_marginBottom="16dp">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/tgl"
@@ -146,22 +140,19 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
                     </LinearLayout>
 
 
                     <ProgressBar
                         android:id="@+id/progress_bar"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="3dp"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:progressBackgroundTint="@color/colorPrimaryDark4"
-                        />
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="3dp"
+                        android:progressBackgroundTint="@color/colorPrimaryDark4" />
 
 
                     <info.hoang8f.widget.FButton
@@ -169,15 +160,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginEnd="24dp"
                         android:layout_marginBottom="16dp"
                         android:text="Daftar"
                         android:textAllCaps="false"
-                        app:shadowColor="@color/colorAccent3"
                         android:textColor="@color/colorAccent"
-                        />
-
+                        app:shadowColor="@color/colorAccent3" />
 
 
                 </LinearLayout>

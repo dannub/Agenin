@@ -64,7 +64,8 @@
                 android:textAlignment="textEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="x1"/>
+                android:text="x1"
+                android:gravity="end" />
                 <TextView
                     android:textColor="@color/colorAccent1"
                     android:textSize="15dp"
@@ -74,7 +75,8 @@
                     android:textAlignment="textEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="meter"/>
+                    android:text="meter"
+                    android:gravity="end" />
             </LinearLayout>
             <TextView
                 android:textColor="@color/colorAccent1"
@@ -83,7 +85,8 @@
                 android:textAlignment="textEnd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rp.870000/-"/>
+                android:text="Rp.870000/-"
+                android:gravity="end" />
 
         </LinearLayout>
 

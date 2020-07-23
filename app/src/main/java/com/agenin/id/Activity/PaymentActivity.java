@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -282,7 +283,7 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
         if (DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif().equals("")){
             fullname = name + " | "+mobileNo;
         }else {
-            fullname =name + " | "+mobileNo+" or "+DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif();
+            fullname =name + " | "+mobileNo+" atau "+DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif();
         }
         String flatNo = DBQueries.addressModelList.get(DBQueries.selectedAddress).getProvinsi();
         String locality = DBQueries.addressModelList.get(DBQueries.selectedAddress).getKabupaten();
@@ -377,7 +378,7 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
 
             File file;
             if (!isCamera){
-                String id = DocumentsContract.getDocumentId(fileUri);
+
                 InputStream inputStream = null;
                 try {
                     inputStream = context.getContentResolver().openInputStream(fileUri);
@@ -385,7 +386,7 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
                     e.printStackTrace();
                 }
 
-                file = new File(context.getCacheDir().getAbsolutePath()+"/"+id+"."+getFileExtension(fileUri,context));
+                file = new File(getPath(context,fileUri));
                 writeFile(inputStream, file);
             }else {
 //                String id = DocumentsContract.getDocumentId(fileUri);
@@ -608,11 +609,11 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
             if (requestCode == SELECT_FILE)
                 onSelectFromGalleryResult(data);
             else if (requestCode == REQUEST_CAMERA) {
-                bitmap = (Bitmap) data.getExtras().get("data");
+//                bitmap = (Bitmap) data.getExtras().get("data");
 
-                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-                image_selected_uri = getImageUri(PaymentActivity.this, bitmap);
-//                 bitmap = BitmapUtils.getBitmapFromGalerry(this,image_selected_uri,800, 800);
+//                // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+//                image_selected_uri = getImageUri(PaymentActivity.this, bitmap);
+                 bitmap = BitmapUtils.getBitmapFromGalerry(this,image_selected_uri,800, 800);
 //                image_selected_uri = getImageUri(getApplicationContext(), bitmap);
                 isbukti = true;
                 bukti.setImageBitmap(bitmap);
@@ -646,18 +647,18 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         if(report.areAllPermissionsGranted()){
 
-//                            ContentValues values = new ContentValues();
-//                            values.put(MediaStore.Images.Media.TITLE,"New Pictures");
-//                            values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
-//                            image_selected_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-//                                    values);
+                            ContentValues values = new ContentValues();
+                            values.put(MediaStore.Images.Media.TITLE,"New Pictures");
+                            values.put(MediaStore.Images.Media.DESCRIPTION,"From Camera");
+                            image_selected_uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                    values);
                             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                            startActivityForResult(cameraIntent,REQUEST_CAMERA);
-//                            if (cameraIntent.resolveActivity(getPackageManager()) != null) {
-////                                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_selected_uri);
-//
-//                            }
 
+                            if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+                                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT,image_selected_uri);
+
+                            }
+                            startActivityForResult(cameraIntent,REQUEST_CAMERA);
 
                         }else {
                             Toast.makeText(PaymentActivity.this,"Permission Denied", Toast.LENGTH_SHORT).show();
@@ -938,12 +939,6 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
 
 
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
 
 
 
@@ -971,6 +966,148 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
         return file;
     }
 
+
+
+    public static String getPath(final Context context, final Uri uri) {
+
+        final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+
+        // DocumentProvider
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
+                // ExternalStorageProvider
+                if (isExternalStorageDocument(uri)) {
+                    String docId = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        docId = DocumentsContract.getDocumentId(uri);
+                    }
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    if ("primary".equalsIgnoreCase(type)) {
+                        return Environment.getExternalStorageDirectory() + "/" + split[1];
+                    }
+
+                    // TODO handle non-primary volumes
+                }
+                // DownloadsProvider
+                else if (isDownloadsDocument(uri)) {
+
+                    String id = null;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        id = DocumentsContract.getDocumentId(uri);
+                    }
+                    final Uri contentUri = ContentUris.withAppendedId(
+                            Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
+
+                    return getDataColumn(context, contentUri, null, null);
+                }
+                // MediaProvider
+                else if (isMediaDocument(uri)) {
+                    final String docId = DocumentsContract.getDocumentId(uri);
+                    final String[] split = docId.split(":");
+                    final String type = split[0];
+
+                    Uri contentUri = null;
+                    if ("image".equals(type)) {
+                        contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("video".equals(type)) {
+                        contentUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+                    } else if ("audio".equals(type)) {
+                        contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+                    }
+
+                    final String selection = "_id=?";
+                    final String[] selectionArgs = new String[] {
+                            split[1]
+                    };
+
+                    return getDataColumn(context, contentUri, selection, selectionArgs);
+                }
+            }
+            // MediaStore (and general)
+            else if ("content".equalsIgnoreCase(uri.getScheme())) {
+
+                // Return the remote address
+                if (isGooglePhotosUri(uri))
+                    return uri.getLastPathSegment();
+
+                return getDataColumn(context, uri, null, null);
+            }
+            // File
+            else if ("file".equalsIgnoreCase(uri.getScheme())) {
+                return uri.getPath();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the value of the data column for this Uri. This is useful for
+     * MediaStore Uris, and other file-based ContentProviders.
+     *
+     * @param context The context.
+     * @param uri The Uri to query.
+     * @param selection (Optional) Filter used in the query.
+     * @param selectionArgs (Optional) Selection arguments used in the query.
+     * @return The value of the _data column, which is typically a file path.
+     */
+    public static String getDataColumn(Context context, Uri uri, String selection,
+                                       String[] selectionArgs) {
+
+        Cursor cursor = null;
+        final String column = "_data";
+        final String[] projection = {
+                column
+        };
+
+        try {
+            cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs,
+                    null);
+            if (cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                return cursor.getString(index);
+            }
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+        return null;
+    }
+
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is ExternalStorageProvider.
+     */
+    public static boolean isExternalStorageDocument(Uri uri) {
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is DownloadsProvider.
+     */
+    public static boolean isDownloadsDocument(Uri uri) {
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is MediaProvider.
+     */
+    public static boolean isMediaDocument(Uri uri) {
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    /**
+     * @param uri The Uri to check.
+     * @return Whether the Uri authority is Google Photos.
+     */
+    public static boolean isGooglePhotosUri(Uri uri) {
+        return "com.google.android.apps.photos.content".equals(uri.getAuthority());
+    }
 
 
 

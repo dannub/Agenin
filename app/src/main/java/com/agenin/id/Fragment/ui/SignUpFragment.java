@@ -298,20 +298,20 @@ public class SignUpFragment extends Fragment {
                 bni = paymentMethodDialog.findViewById(R.id.bni);
                 bca = paymentMethodDialog.findViewById(R.id.bca);
                 mandiri = paymentMethodDialog.findViewById(R.id.mandiri);
-//
-//                bri.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                        paymentMethodDialog.dismiss();
-//                        userdata.put("bukti_bank","BRI");
-//                        RegisterActivity.onTransferDaftarFragment = true;
-//                        setFragment(new TransferDaftarFragment());
-//
-//
-//
-//                    }
-//                });
+
+                bri.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        paymentMethodDialog.dismiss();
+                        userdata.put("bukti_bank","BRI");
+                        RegisterActivity.onTransferDaftarFragment = true;
+                        setFragment(new TransferDaftarFragment());
+
+
+
+                    }
+                });
 
                 bni.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -326,15 +326,15 @@ public class SignUpFragment extends Fragment {
                     }
                 });
 
-//                bca.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        paymentMethodDialog.dismiss();
-//                        userdata.put("bukti_bank","BCA");
-//                        RegisterActivity.onTransferDaftarFragment = true;
-//                        setFragment(new TransferDaftarFragment());
-//                    }
-//                });
+                bca.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        paymentMethodDialog.dismiss();
+                        userdata.put("bukti_bank","BCA");
+                        RegisterActivity.onTransferDaftarFragment = true;
+                        setFragment(new TransferDaftarFragment());
+                    }
+                });
 
                 mandiri.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -349,92 +349,6 @@ public class SignUpFragment extends Fragment {
 
 
 
-
-//                                    mainIntent();
-////                                    Map<String,Object> userdata = new HashMap<>();
-////
-////                                    userdata.put("fullname",fullname.getText().toString());
-////                                    userdata.put("email",email.getText().toString());
-////                                    userdata.put("hp",hp.getText().toString());
-////                                    userdata.put("profile","");
-////                                    userdata.put("Lastseen", FieldValue.serverTimestamp());
-////
-////
-////
-////                                    firebaseFirestore.collection("USERS").document(firebaseAuth.getUid())
-////                                            .set(userdata)
-////                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-////                                                @Override
-////                                                public void onComplete(@NonNull Task<Void> task) {
-////                                                    if(task.isSuccessful()){
-////
-////                                                        CollectionReference userDataReference = firebaseFirestore.collection("USERS").document(firebaseAuth.getUid()).collection("USER_DATA");
-////
-////                                                        ///MAPS
-////                                                        Map<String ,Object> wishlistMap = new HashMap<>();
-////                                                        wishlistMap.put("list_size",(long)0);
-////
-////                                                        Map<String ,Object> ratingMap = new HashMap<>();
-////                                                        ratingMap.put("list_size",(long)0);
-////
-////                                                        Map<String ,Object> cartMap = new HashMap<>();
-////                                                        cartMap.put("list_size",(long)0);
-////
-////                                                        Map<String ,Object> myAddressesMap = new HashMap<>();
-////                                                        myAddressesMap.put("list_size",(long)0);
-////
-////                                                        Map<String ,Object> notificationMap = new HashMap<>();
-////                                                        notificationMap.put("list_size",(long)0);
-////                                                        ///MAPS
-////
-////                                                        final List<String> documentNames = new ArrayList<>();
-////                                                        documentNames.add("MY_WISHLIST");
-////                                                        documentNames.add("MY_RATINGS");
-////                                                        documentNames.add("MY_CART");
-////                                                        documentNames.add("MY_ADDRESSES");
-////                                                        documentNames.add("MY_NOTIFICATIONS");
-////
-////
-////                                                        List<Map<String,Object>> documentFields = new ArrayList<>();
-////                                                        documentFields.add(wishlistMap);
-////                                                        documentFields.add(ratingMap);
-////                                                        documentFields.add(cartMap);
-////                                                        documentFields.add(myAddressesMap);
-////                                                        documentFields.add(notificationMap);
-////
-////                                                        for (int x = 0;x<documentNames.size();x++){
-////
-////                                                            final int finalX = x;
-////                                                            userDataReference.document(documentNames.get(x))
-////                                                                    .set(documentFields.get(x)).addOnCompleteListener(new OnCompleteListener<Void>() {
-////                                                                @Override
-////                                                                public void onComplete(@NonNull Task<Void> task) {
-////                                                                    if(task.isSuccessful()){
-////                                                                        if (finalX == documentNames.size()-1) {
-////
-////                                                                            mainIntent();
-////                                                                        }
-////                                                                    }else {
-////                                                                        progressBar.setVisibility(View.INVISIBLE);
-////                                                                        signUpBtn.setEnabled(true);
-////                                                                        String error = task.getException().getMessage();
-////                                                                        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
-////                                                                    }
-////                                                                }
-////                                                            });
-////                                                        }
-////
-////
-////                                                    }else {
-////                                                        String error = task.getException().getMessage();
-////                                                        Toast.makeText(getActivity(),error,Toast.LENGTH_SHORT).show();
-////                                                    }
-////                                                }
-////                                            });
-//
-
-
-//
 
             } else {
                 confirmpwd.setError("Password doesn't matched!");

@@ -8,7 +8,9 @@
     android:layout_marginEnd="16dp"
     android:elevation="4dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16sp">
 
     <TextView
         android:id="@+id/your_recent_orders_title"
@@ -21,7 +23,8 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp" />
 
     <LinearLayout
         android:id="@+id/recent_order_container"

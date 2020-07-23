@@ -79,7 +79,8 @@
         android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/check" />
+        app:srcCompat="@drawable/check"
+        android:paddingRight="16dp" />
 
     <LinearLayout
         android:id="@+id/manage_address_container"
@@ -93,7 +94,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible">
+        tools:visibility="invisible"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:id="@+id/textView25"
@@ -105,7 +107,8 @@
             android:paddingBottom="6dp"
             android:text="Edit"
             android:textAlignment="center"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/textView26"

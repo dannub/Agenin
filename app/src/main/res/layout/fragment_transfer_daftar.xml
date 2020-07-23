@@ -63,7 +63,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -76,7 +77,8 @@
                     android:text="Bayar biaya pendaftaran agen sesuai jumlah di atas"
                     android:textColor="@color/colorPrimaryDark3"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -87,7 +89,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimaryDark4"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
 
 
             </LinearLayout>
@@ -127,7 +130,7 @@
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:text="Silakan lakukan pembayaran ke rekening berikut:"
-                        />
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
 
                 <ImageView
@@ -218,7 +221,7 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
 
-                    />
+                    android:gravity="center_horizontal" />
 
 
             </LinearLayout>

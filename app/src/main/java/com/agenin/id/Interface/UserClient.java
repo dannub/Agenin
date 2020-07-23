@@ -42,9 +42,9 @@ public interface UserClient {
             @PartMap Map<String,RequestBody> text);
 
     @Multipart
-    @PATCH("api/user/info/update/{Id}")
+    @PATCH("api/user/info/update/{id}")
     Call<UserModel> updateProfilPhoto(
-            @Path("Id")String userId,
+            @Path("id")String userId,
             @Part MultipartBody.Part profil,
             @PartMap Map<String,RequestBody> text);
 

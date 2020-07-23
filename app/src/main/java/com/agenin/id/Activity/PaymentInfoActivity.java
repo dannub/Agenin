@@ -89,14 +89,14 @@ public class PaymentInfoActivity extends AppCompatActivity {
         total.setText(DeliveryActivity.totalAmount.getText());
         if (bank==1){
             bank_img.setImageDrawable(getDrawable(R.drawable.bri));
-            norek.setText("00000000000000000");
+            norek.setText("6108-01-023888-53-2");
             cabang.setText("Surabaya");
-            an.setText("Agenin BRI");
+            an.setText("Moh Rizal Rizki");
             salin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "00000000000000000");
+                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "6108-01-023888-53-2");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(PaymentInfoActivity.this,"No.Rekening tersalin", Toast.LENGTH_SHORT).show();
 
@@ -120,14 +120,14 @@ public class PaymentInfoActivity extends AppCompatActivity {
         }
         else if(bank==3){
             bank_img.setImageDrawable(getDrawable(R.drawable.bca));
-            norek.setText("00000000000000345");
+            norek.setText("5060294021");
             cabang.setText("Surabaya");
-            an.setText("Agenin BCA");
+            an.setText("Siti Rukmi Jayanti");
             salin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "00000000000000345");
+                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "5060294021");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(PaymentInfoActivity.this,"No.Rekening tersalin", Toast.LENGTH_SHORT).show();
 

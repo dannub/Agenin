@@ -94,8 +94,6 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
 
         private ImageView productImage;
         private TextView productTitle;
-        private TextView freeCoupon;
-        private ImageView couponIcon;
         private TextView ratting;
         private View priceCut;
         private TextView totalRattings;
@@ -138,9 +136,8 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
                 productPrice.setTextColor(Color.parseColor("#000000"));
                 oriPrice.setVisibility(View.VISIBLE);
                 if(!oriPriceValue.equals("")){
-                    oriPrice.setText("Rp."+ProductDetailActivity.currencyFormatter(oriPriceValue)+"/-");
+                    oriPrice.setText("Rp."+ProductDetailActivity.currencyFormatter(oriPriceValue));
                     priceCut.setVisibility(View.VISIBLE);
-
                 }else {
                     oriPrice.setText("");
                     priceCut.setVisibility(View.GONE);

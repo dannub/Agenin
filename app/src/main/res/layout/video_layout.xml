@@ -29,7 +29,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Was india better then south africa in current serise?"
-            />
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="16dp" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,14 +42,13 @@
             app:layout_constraintTop_toBottomOf="@id/textViewTitle">
 
             <ImageView
-            android:id="@+id/imageViewItem"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
-            />
+                android:id="@+id/imageViewItem"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/btnPlay"
@@ -59,7 +59,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageViewItem"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_play" />
+                app:srcCompat="@drawable/ic_play"
+                tools:ignore="VectorDrawableCompat" />
 
 
 

@@ -24,6 +24,7 @@ import com.agenin.id.Activity.DeliveryActivity;
 import com.agenin.id.Activity.MainActivity;
 import com.agenin.id.Activity.NotificationActivity;
 import com.agenin.id.Activity.ProductDetailActivity;
+import com.agenin.id.Activity.SearchActivity;
 import com.agenin.id.Adapter.CartAdapter;
 import com.agenin.id.Adapter.CategoryAdapter;
 import com.agenin.id.Adapter.HomePageAdapter;
@@ -98,7 +99,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DBQueries {
-   public static String url = "https://apk.agenin.id/";
+     public static String url = "https://apk.agenin.id/";
 
   //public static String url = "http://192.168.100.9:8000/";
     public static List<String> myRatedIds = new ArrayList<>();
@@ -1585,6 +1586,11 @@ public class DBQueries {
                     }
 
                 } else {
+                    try {
+                        Toast.makeText(context, (CharSequence) response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if (loadingdialog!=null) {
                         loadingdialog.dismiss();
                     }
@@ -2181,9 +2187,9 @@ public class DBQueries {
 
 
                             }
-                            if (lists.get(index).get(0).getType()!=4) {
-                                lists.get(index).add(0, new HomePageModel(4, categoryModelList));
-                            }
+//                            if (lists.get(index).get(0).getType()!=4) {
+//                                lists.get(index).add(0, new HomePageModel(4, categoryModelList));
+//                            }
                             HomeFragment.isHome = false;
                             MainActivity.navView.setVisibility(View.VISIBLE);
                             HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label);

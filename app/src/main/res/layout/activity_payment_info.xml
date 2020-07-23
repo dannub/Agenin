@@ -75,7 +75,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="30dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -89,7 +90,8 @@
                     android:text="Bayar pesanan sesuai jumlah di atas"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="15dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -100,7 +102,8 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal" />
 
 
             </LinearLayout>
@@ -140,7 +143,7 @@
                         android:textStyle="bold"
                         android:textAlignment="center"
                         android:text="Silakan lakukan pembayaran ke rekening berikut:"
-                        />
+                        android:gravity="center_horizontal" />
                 </LinearLayout>
 
                 <ImageView
@@ -230,8 +233,7 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20dp"
                     android:textStyle="bold"
-
-                    />
+                    android:gravity="center_horizontal" />
 
 
             </LinearLayout>

@@ -175,7 +175,8 @@
             android:drawableTint="@color/colorAccent"
             android:gravity="center"
             android:text="Hapus Barang"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:drawableLeft="@drawable/bin" />
     </LinearLayout>
 
 

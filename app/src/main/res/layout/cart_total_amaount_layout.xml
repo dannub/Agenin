@@ -28,7 +28,8 @@
             android:text="RINCIAN HARGA"
            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/total_items"
@@ -39,7 +40,8 @@
             android:text="Harga (2 barang)"
             android:textColor="@color/colorAccent1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider6" />
+            app:layout_constraintTop_toBottomOf="@+id/divider6"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/textView17"
@@ -50,7 +52,8 @@
             android:text="Total Ongkir"
             android:textColor="@color/colorAccent1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/total_items" />
+            app:layout_constraintTop_toBottomOf="@+id/total_items"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/total_items_price"
@@ -61,7 +64,8 @@
             android:textColor="@color/colorAccent1"
             app:layout_constraintBottom_toBottomOf="@+id/total_items"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/total_items" />
+            app:layout_constraintTop_toTopOf="@+id/total_items"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:id="@+id/delivery_price"
@@ -72,7 +76,8 @@
             android:textColor="@color/colorSuccess"
             app:layout_constraintBottom_toBottomOf="@+id/textView17"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView17" />
+            app:layout_constraintTop_toTopOf="@+id/textView17"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:id="@+id/textView20"
@@ -84,7 +89,8 @@
             android:textColor="@color/colorAccent1"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+            app:layout_constraintTop_toBottomOf="@+id/divider7"
+            android:layout_marginLeft="16dp" />
 
         <TextView
             android:id="@+id/total_price"
@@ -96,7 +102,8 @@
             android:textColor="@color/colorAccent1"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider7" />
+            app:layout_constraintTop_toBottomOf="@+id/divider7"
+            android:layout_marginRight="16dp" />
 
         <TextView
             android:id="@+id/saved_amount"
@@ -109,7 +116,8 @@
             android:textColor="@color/colordetail"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider8" />
+            app:layout_constraintTop_toBottomOf="@+id/divider8"
+            android:layout_marginLeft="16dp" />
 
         <View
             android:id="@+id/divider6"

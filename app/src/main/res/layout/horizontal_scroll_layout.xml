@@ -20,7 +20,8 @@
         android:textColor="@color/colorAccent"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal" />
 
     <TextView
 
@@ -34,7 +35,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/horizontal_scroll_layout_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/horizontal_scroll_layout_button" />
+        app:layout_constraintTop_toTopOf="@+id/horizontal_scroll_layout_button"
+        android:layout_marginLeft="24dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,8 +56,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontal_scroll_layout_button" />
+            app:layout_constraintStart_toStartOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

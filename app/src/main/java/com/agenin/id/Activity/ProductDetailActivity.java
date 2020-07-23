@@ -467,7 +467,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     divider.setVisibility(View.VISIBLE);
                     productPrice.setText("Rp " +currencyFormatter(product.getPrice()) );
                     if (!product.getSatuan().equals("")) {
-                        oriPrice.setText("Rp " + currencyFormatter(product.getCutted_price())+"/"+product.getSatuan());
+                        oriPrice.setText("Rp " + currencyFormatter(product.getCutted_price())+" /"+product.getSatuan());
                     }else {
                         oriPrice.setText("Rp " + currencyFormatter(product.getCutted_price()));
                     }
@@ -482,7 +482,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                     satuan_harga_agen.setVisibility(View.VISIBLE);
                     satuan_harga_agen.setText(" /"+product.getSatuan());
                     satuan_min_order.setVisibility(View.VISIBLE);
-                    satuan_min_order.setText(" /"+product.getSatuan());
+                    satuan_min_order.setText(" "+product.getSatuan());
                 }else {
                     satuan_harga_agen.setVisibility(View.GONE);
                     satuan_min_order.setVisibility(View.GONE);

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.agenin.id.Fragment.ui.ProfilFragment;
 import com.agenin.id.Fragment.ui.UpdateInfoFragment;
 import com.agenin.id.Fragment.ui.UpdatePasswordFragment;
 import com.agenin.id.R;
@@ -18,6 +19,8 @@ public class UpdateUserInfoActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
     private UpdateInfoFragment updateInfoFragment;
     private UpdatePasswordFragment updatePasswordFragment;
+
+    public  static ProfilFragment profilFragment;
 
     private String name;
     private String email;

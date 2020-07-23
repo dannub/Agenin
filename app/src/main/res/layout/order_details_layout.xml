@@ -51,7 +51,8 @@
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notalayout"
-        app:srcCompat="@drawable/load_icon" />
+        app:srcCompat="@drawable/load_icon"
+        android:layout_marginRight="16dp" />
 
     <TextView
         android:id="@+id/product_title"
@@ -68,7 +69,8 @@
         app:layout_constraintBottom_toTopOf="@+id/product_quantity"
         app:layout_constraintEnd_toStartOf="@+id/product_image"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notalayout" />
+        app:layout_constraintTop_toBottomOf="@+id/notalayout"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/product_price"
@@ -80,7 +82,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/product_quantity" />
+        app:layout_constraintTop_toBottomOf="@+id/product_quantity"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/product_quantity"
@@ -89,11 +92,11 @@
         android:layout_marginEnd="3dp"
         android:background="@drawable/border_background"
         android:padding="3dp"
-
         android:text=""
         android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@+id/product_image"
-        app:layout_constraintEnd_toStartOf="@+id/satuan2" />
+        app:layout_constraintEnd_toStartOf="@+id/satuan2"
+        android:layout_marginRight="3dp" />
 
     <View
         android:id="@+id/divider9"
@@ -114,7 +117,8 @@
         android:tint="@color/colorAccent3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider9"
-        app:srcCompat="@mipmap/dot" />
+        app:srcCompat="@mipmap/dot"
+        android:layout_marginLeft="16dp" />
 
     <ProgressBar
         android:id="@+id/ordered_packed_progressbar"
@@ -128,7 +132,8 @@
         android:rotation="90"
         android:transformPivotX="0dp"
         app:layout_constraintStart_toStartOf="@+id/ordered_indicator"
-        app:layout_constraintTop_toTopOf="@+id/ordered_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/ordered_indicator"
+        android:layout_marginLeft="9dp" />
 
     <ImageView
         android:id="@+id/packed_indicator"
@@ -139,7 +144,8 @@
         android:tint="@color/colorAccent3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ordered_indicator"
-        app:srcCompat="@mipmap/dot" />
+        app:srcCompat="@mipmap/dot"
+        android:layout_marginLeft="16dp" />
 
     <ProgressBar
         android:id="@+id/packed_shipping_progressbar"
@@ -153,7 +159,8 @@
         android:rotation="90"
         android:transformPivotX="0dp"
         app:layout_constraintStart_toStartOf="@+id/packed_indicator"
-        app:layout_constraintTop_toTopOf="@+id/packed_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/packed_indicator"
+        android:layout_marginLeft="9dp" />
 
     <ImageView
         android:id="@+id/shipping_indicator"
@@ -164,7 +171,8 @@
         android:tint="@color/colorAccent3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/packed_shipping_progressbar"
-        app:srcCompat="@mipmap/dot" />
+        app:srcCompat="@mipmap/dot"
+        android:layout_marginLeft="16dp" />
 
     <ProgressBar
         android:id="@+id/shipping_delivered_progressbar"
@@ -178,7 +186,8 @@
         android:rotation="90"
         android:transformPivotX="0dp"
         app:layout_constraintStart_toStartOf="@+id/shipping_indicator"
-        app:layout_constraintTop_toTopOf="@+id/shipping_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/shipping_indicator"
+        android:layout_marginLeft="9dp" />
 
     <ImageView
         android:id="@+id/delivered_indicator"
@@ -189,7 +198,8 @@
         android:tint="@color/colorAccent3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/shipping_delivered_progressbar"
-        app:srcCompat="@mipmap/dot" />
+        app:srcCompat="@mipmap/dot"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/ordered_title"
@@ -202,7 +212,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/ordered_indicator"
         app:layout_constraintStart_toEndOf="@+id/ordered_indicator"
-        app:layout_constraintTop_toTopOf="@+id/ordered_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/ordered_indicator"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/ordered_date"
@@ -236,7 +247,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/packed_indicator"
         app:layout_constraintStart_toEndOf="@+id/packed_indicator"
-        app:layout_constraintTop_toTopOf="@+id/packed_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/packed_indicator"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/packed_date"
@@ -248,7 +260,8 @@
         android:textSize="10sp"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/packed_title"
-        app:layout_constraintTop_toBottomOf="@+id/packed_title" />
+        app:layout_constraintTop_toBottomOf="@+id/packed_title"
+        android:layout_marginRight="16dp" />
 
 
 
@@ -263,7 +276,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/shipping_indicator"
         app:layout_constraintStart_toEndOf="@+id/shipping_indicator"
-        app:layout_constraintTop_toTopOf="@+id/shipping_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/shipping_indicator"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/shipping_date"
@@ -276,7 +290,8 @@
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/copy_resi"
         app:layout_constraintStart_toStartOf="@+id/shipping_title"
-        app:layout_constraintTop_toBottomOf="@+id/shipping_title" />
+        app:layout_constraintTop_toBottomOf="@+id/shipping_title"
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:id="@+id/shipping_body"
@@ -299,7 +314,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/delivered_indicator"
         app:layout_constraintStart_toEndOf="@+id/delivered_indicator"
-        app:layout_constraintTop_toTopOf="@+id/delivered_indicator" />
+        app:layout_constraintTop_toTopOf="@+id/delivered_indicator"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/delivered_date"
@@ -360,7 +376,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/shipping_body"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/shipping_date" />
+        app:layout_constraintTop_toTopOf="@+id/shipping_date"
+        android:layout_marginRight="3dp" />
 
     <TextView
         android:id="@+id/cancel_dikemas"
@@ -375,7 +392,9 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/packed_date" />
+        app:layout_constraintTop_toTopOf="@+id/packed_date"
+        android:layout_marginRight="16dp"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/cancel_konfirmasi"
@@ -390,7 +409,9 @@
         android:textStyle="bold"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ordered_date" />
+        app:layout_constraintTop_toTopOf="@+id/ordered_date"
+        android:layout_marginRight="16dp"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/satuan"
@@ -401,7 +422,8 @@
         android:text=""
         app:layout_constraintBottom_toBottomOf="@+id/product_price"
         app:layout_constraintStart_toEndOf="@+id/product_price"
-        app:layout_constraintTop_toTopOf="@+id/product_price" />
+        app:layout_constraintTop_toTopOf="@+id/product_price"
+        android:layout_marginLeft="2dp" />
 
     <TextView
         android:id="@+id/satuan2"
@@ -412,7 +434,8 @@
         android:text=""
         app:layout_constraintBottom_toBottomOf="@+id/product_quantity"
         app:layout_constraintEnd_toStartOf="@+id/product_image"
-        app:layout_constraintTop_toTopOf="@+id/product_quantity" />
+        app:layout_constraintTop_toTopOf="@+id/product_quantity"
+        android:layout_marginRight="8dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.agenin.id.Adapter;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,57 +41,56 @@ public class GridProductLayoutAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        View view;
-        if(convertView == null){
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_scroll_item_layout,null);
-            view.setElevation(0);
-            view.setBackgroundColor(Color.parseColor("#ffffff"));
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_scroll_item_layout,parent,false);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                view.setElevation(3);
+//            }
+//            view.setBackgroundColor(Color.parseColor("#ffffff"));
 
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent productDetailsIntent = new Intent(parent.getContext(), ProductDetailActivity.class);
-                    productDetailsIntent.putExtra("productID",horizontalProductScrollModelList.get(position).getProductID());
-                    parent.getContext().startActivity(productDetailsIntent);
-                }
-            });
 
-            ImageView productImage = view.findViewById(R.id.hs_product_image);
-            TextView productTitle = view.findViewById(R.id.hs_product_title);
-            TextView productCuttedPrice = view.findViewById(R.id.cutted_price);
-            TextView productPrice = view.findViewById(R.id.hs_product_price);
-            View pricecut =view.findViewById(R.id.price_cut);
-
-            Glide.with(parent.getContext()).load(horizontalProductScrollModelList.get(position).getProductImage()).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
-            productTitle.setText(horizontalProductScrollModelList.get(position).getProductTitle());
-
-            if(!horizontalProductScrollModelList.get(position).getProducCuttedPrice().equals("")){
-                productCuttedPrice.setText("Rp "+ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(position).getProducCuttedPrice())+"/-");
-                pricecut.setVisibility(View.VISIBLE);
-
-            }else {
-                productCuttedPrice.setText("");
-                pricecut.setVisibility(View.GONE);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent productDetailsIntent = new Intent(parent.getContext(), ProductDetailActivity.class);
+                productDetailsIntent.putExtra("productID",horizontalProductScrollModelList.get(position).getProductID());
+                parent.getContext().startActivity(productDetailsIntent);
             }
+        });
 
-            if(!horizontalProductScrollModelList.get(position).getProducPrice().equals("")){
-                productPrice.setText("Rp "+ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(position).getProducPrice())+"/-");
+        ImageView productImage = view.findViewById(R.id.hs_product_image);
+        TextView productTitle = view.findViewById(R.id.hs_product_title);
+        TextView productCuttedPrice = view.findViewById(R.id.cutted_price);
+        TextView productPrice = view.findViewById(R.id.hs_product_price);
+        View pricecut =view.findViewById(R.id.price_cut);
 
-            }else {
-                productPrice.setText("");
+        Glide.with(parent.getContext()).load(horizontalProductScrollModelList.get(position).getProductImage()).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
+        productTitle.setText(horizontalProductScrollModelList.get(position).getProductTitle());
 
-            }
-
+        if(!horizontalProductScrollModelList.get(position).getProducCuttedPrice().equals("")){
+            productCuttedPrice.setText("Rp "+ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(position).getProducCuttedPrice()));
+            pricecut.setVisibility(View.VISIBLE);
 
         }else {
-            view = convertView;
+            productCuttedPrice.setText("");
+            pricecut.setVisibility(View.GONE);
         }
+
+        if(!horizontalProductScrollModelList.get(position).getProducPrice().equals("")){
+            productPrice.setText("Rp "+ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(position).getProducPrice()));
+
+        }else {
+            productPrice.setText("");
+
+        }
+
+
+
         return view;
     }
 }

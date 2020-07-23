@@ -81,7 +81,7 @@ public class ProfilFragment extends Fragment {
 
     private Button viewAllAddressBtn;
     public static final int MANAGE_ADDRESS =1;
-    private CircleImageView profileview;
+    public static CircleImageView profileview;
     private TextView name,email;
     private LinearLayout layoutContainer,recentOrdersContainer;
     private Dialog loadingDialog;
@@ -184,7 +184,13 @@ public class ProfilFragment extends Fragment {
                 Intent updateUserInfo = new Intent(getContext(), UpdateUserInfoActivity.class);
                 updateUserInfo.putExtra("Name",name.getText());
                 updateUserInfo.putExtra("Email",email.getText());
-                updateUserInfo.putExtra("Photo",DBQueries.url+userModel.getProfil());
+                if (!userModel.getProfil().isEmpty()){
+                    updateUserInfo.putExtra("Photo",DBQueries.url+userModel.getProfil());
+                }else {
+                    updateUserInfo.putExtra("Photo",userModel.getProfil());
+                }
+                UpdateUserInfoActivity.profilFragment= ProfilFragment.this;
+
                 startActivity(updateUserInfo);
             }
         });
@@ -196,48 +202,6 @@ public class ProfilFragment extends Fragment {
 
     private void reloadPage(){
 
-        //DBqueries.loadOrders(getContext(), loadingDialog, null, null);
-        connectivityManager =(ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        if (networkInfo !=null && networkInfo.isConnected()==true ) {
-
-            DBQueries.loadAddresses(getContext(), loadingDialog, false, 0,false);
-
-
-            layoutContainer.setVisibility(View.VISIBLE);
-
-
-        }
-
-    }
-
-    public static void setAddress() {
-        String name,mobileNo;
-        name = DBQueries.addressModelList.get(DBQueries.selectedAddress).getNama();
-        mobileNo = DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_telepon();
-        if (DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif().equals("")){
-            addressname.setText(name + " | "+mobileNo);
-        }else {
-            addressname.setText(name + " | "+mobileNo+" or "+DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif());
-        }
-        String flatNo = DBQueries.addressModelList.get(DBQueries.selectedAddress).getProvinsi();
-        String locality = DBQueries.addressModelList.get(DBQueries.selectedAddress).getKabupaten();
-        String landmark = DBQueries.addressModelList.get(DBQueries.selectedAddress).getAlamat();
-        String city = DBQueries.addressModelList.get(DBQueries.selectedAddress).getKecamatan();
-        String state = DBQueries.addressModelList.get(DBQueries.selectedAddress).getNegara();
-        if (landmark.equals("")) {
-            address.setText(city+" "+locality + " "+flatNo+" "+" "+state);
-        }else {
-            address.setText(landmark+" "+city+" "+locality + " "+flatNo+" "+state);
-        }
-        pincode.setText(DBQueries.addressModelList.get(DBQueries.selectedAddress).getKodepos());
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         loadingDialog.show();
         loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -246,6 +210,8 @@ public class ProfilFragment extends Fragment {
 
             }
         });
+
+        //DBqueries.loadOrders(getContext(), loadingDialog, null, null);
         connectivityManager =(ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         networkInfo = connectivityManager.getActiveNetworkInfo();
 
@@ -325,8 +291,6 @@ public class ProfilFragment extends Fragment {
                                 layoutContainer.setVisibility(View.VISIBLE);
                                 layoutContainer.getChildAt(1).setVisibility(View.VISIBLE);
 
-                                reloadPage();
-
                             } else {
 
                                 UserPreference userPreference = new UserPreference(getContext());
@@ -351,9 +315,159 @@ public class ProfilFragment extends Fragment {
             } else {
                 loadingDialog.dismiss();
             }
-        }else {
+
+            layoutContainer.setVisibility(View.VISIBLE);
+
+
+        } else {
             loadingDialog.dismiss();
         }
+
+    }
+
+    public static void setAddress() {
+        String name,mobileNo;
+        name = DBQueries.addressModelList.get(DBQueries.selectedAddress).getNama();
+        mobileNo = DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_telepon();
+        if (DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif().equals("")){
+            addressname.setText(name + " | "+mobileNo);
+        }else {
+            addressname.setText(name + " | "+mobileNo+" atau "+DBQueries.addressModelList.get(DBQueries.selectedAddress).getNo_alternatif());
+        }
+        String flatNo = DBQueries.addressModelList.get(DBQueries.selectedAddress).getProvinsi();
+        String locality = DBQueries.addressModelList.get(DBQueries.selectedAddress).getKabupaten();
+        String landmark = DBQueries.addressModelList.get(DBQueries.selectedAddress).getAlamat();
+        String city = DBQueries.addressModelList.get(DBQueries.selectedAddress).getKecamatan();
+        String state = DBQueries.addressModelList.get(DBQueries.selectedAddress).getNegara();
+        if (landmark.equals("")) {
+            address.setText(city+" "+locality + " "+flatNo+" "+" "+state);
+        }else {
+            address.setText(landmark+" "+city+" "+locality + " "+flatNo+" "+state);
+        }
+        pincode.setText(DBQueries.addressModelList.get(DBQueries.selectedAddress).getKodepos());
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        reloadPage();
+//        loadingDialog.show();
+//        loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+//            @Override
+//            public void onDismiss(DialogInterface dialog) {
+//
+//            }
+//        });
+//        connectivityManager =(ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        networkInfo = connectivityManager.getActiveNetworkInfo();
+//
+//        if (networkInfo !=null && networkInfo.isConnected()==true ) {
+//
+//            UserPreference userPreference = new UserPreference(getContext());
+//            userPreference.setUserPreference("user", null);
+//            if (user != null) {
+//
+//
+//                if (userPreference.getUserPreference("user") == null) {
+//
+//                    final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+//                            .readTimeout(60, TimeUnit.SECONDS)
+//                            .connectTimeout(60, TimeUnit.SECONDS)
+//                            .build();
+//
+//                    Retrofit.Builder builder = new Retrofit.Builder()
+//                            .baseUrl(DBQueries.url)
+//                            .client(okHttpClient)
+//                            .addConverterFactory(GsonConverterFactory.create());
+//
+//                    Retrofit retrofit = builder.build();
+//                    UserClient client = retrofit.create(UserClient.class);
+//
+//                    Call<UserModel> call = client.login(user.getEmail(), user.getUid());
+//
+//                    call.enqueue(new Callback<UserModel>() {
+//                        @Override
+//                        public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+//                            if (response.isSuccessful()) {
+//
+//                                userModel = response.body();
+//                                userPreference.setUserPreference("user", userModel);
+//
+//                                DBQueries.loadAddresses(getContext(), loadingDialog, false, 0, false);
+//
+//                                name.setText(userModel.getName());
+//                                email.setText(userModel.getEmail());
+//                                Date userDate = DBQueries.StringtoDate(userModel.getDate());
+//
+//                                user_date.setText("Bergabung sejak : " + datetoString(userDate));
+//                                if (userModel.getStatus()) {
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                        dot.setImageTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.colorSuccess)));
+//                                    } else {
+//                                        dot.setVisibility(View.GONE);
+//                                    }
+//                                    status.setText(" Aktif");
+//                                } else {
+//                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                                        dot.setImageTintList(ColorStateList.valueOf(getContext().getResources().getColor(R.color.colorPrimary)));
+//                                    } else {
+//                                        dot.setVisibility(View.GONE);
+//                                    }
+//                                    status.setText(" Menunggu Konfirmasi");
+//                                }
+//                                if (!userModel.getProfil().equals("")) {
+//                                    Glide.with(getContext()).load(DBQueries.url + userModel.getProfil()).apply(new RequestOptions().placeholder(R.drawable.profil2)).into(profileview);
+//
+//                                } else {
+//                                    profileview.setImageDrawable(getContext().getResources().getDrawable(R.drawable.profil2));
+//
+//                                }
+//
+//                                if (!loadingDialog.isShowing()) {
+//                                    if (DBQueries.addressModelList.size() == 0) {
+//                                        addressname.setText("No Address");
+//                                        address.setText("-");
+//                                        pincode.setText("-");
+//                                    } else {
+//                                        setAddress();
+//                                    }
+//
+//                                }
+//
+//                                layoutContainer.setVisibility(View.VISIBLE);
+//                                layoutContainer.getChildAt(1).setVisibility(View.VISIBLE);
+//
+//                                reloadPage();
+//
+//                            } else {
+//
+//                                UserPreference userPreference = new UserPreference(getContext());
+//                                userPreference.setUserPreference("user", null);
+//
+//                                loadingDialog.dismiss();
+//
+//                            }
+//
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<UserModel> call, Throwable t) {
+//                            Log.e("debug", "onFailure: ERROR > " + t.toString());
+//
+//                            loadingDialog.dismiss();
+//
+//                        }
+//                    });
+//
+//                }
+//            } else {
+//                loadingDialog.dismiss();
+//            }
+//        }else {
+//            loadingDialog.dismiss();
+//        }
     }
 
     private String datetoString (Date date){
@@ -365,7 +479,6 @@ public class ProfilFragment extends Fragment {
         String hasil = sdf.format(date);
 
         String bulan=hasil.substring(0,3);
-        Log.i("hasil",bulan);
         if(bulan.equals("Jan")){
             bulan = "Januari";
         }else if(bulan.equals("Feb")){

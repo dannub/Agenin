@@ -68,7 +68,8 @@
         android:textColor="@color/colorAccent1"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/change_or_add_address_btn"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/textView6"
@@ -81,7 +82,8 @@
         android:textColor="@color/colordetail"
         app:layout_constraintBottom_toTopOf="@+id/divider11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="16dp" />
 
     <View
         android:id="@+id/divider11"

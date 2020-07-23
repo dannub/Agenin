@@ -47,7 +47,8 @@
                 android:textColor="@color/colorAccent1"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginLeft="16dp" />
 
             <LinearLayout
                 android:id="@+id/tw"
@@ -71,7 +72,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
                     <TextView
                         android:id="@+id/totalbayar"
                         android:layout_width="wrap_content"
@@ -83,7 +85,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="15dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
 
                 </LinearLayout>
 
@@ -101,7 +104,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
                     <TextView
                         android:id="@+id/status"
                         android:layout_width="wrap_content"
@@ -113,7 +117,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="15dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
                     <TextView
                         android:id="@+id/waktupesan"
                         android:layout_width="wrap_content"
@@ -125,7 +130,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="15dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -176,7 +182,9 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="start" />
 
                 </LinearLayout>
 
@@ -195,7 +203,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="10dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
 
                     <TextView
                         android:id="@+id/bank"
@@ -207,7 +216,8 @@
                         android:textColor="@color/colorAccent1"
                         android:textSize="15dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_marginLeft="16dp" />
 
                 </LinearLayout>
             </LinearLayout>

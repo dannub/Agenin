@@ -16,7 +16,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -330,80 +332,151 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     public  class GridProductViewholder extends RecyclerView.ViewHolder{
 
-        private ConstraintLayout container;
+        private LinearLayout container;
         private TextView gridLayoutTitle;
         private Button gridLayoutViewAllBtn;
-        private GridLayout gridProductLayout;
+//        private GridLayout gridProductLayout;
+        private RecyclerView gridView;
 
         public GridProductViewholder(@NonNull View itemView) {
             super(itemView);
             container = itemView.findViewById(R.id.container);
              gridLayoutTitle = itemView.findViewById(R.id.grid_product_layout_title);
-             gridLayoutViewAllBtn = itemView.findViewById(R.id.grid_product_viewall_layout_btn);
-            gridProductLayout = itemView.findViewById(R.id.grid_layout);
+//             gridLayoutViewAllBtn = itemView.findViewById(R.id.grid_product_viewall_layout_btn);
+//            gridProductLayout = itemView.findViewById(R.id.grid_layout);
+            gridView = itemView.findViewById(R.id.grid_view);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         private  void  setGridProductLayout(final List<HorizontalProductScrollModel> horizontalProductScrollModelList, final String title, String color){
             gridLayoutTitle.setText(title);
 
-            container.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color)));
-
-
-            for (int x = 0;x<6;x++){
-
-                ImageView productImage = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_image);
-                TextView productTitle = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_title);
-                TextView productCuttedPrice = gridProductLayout.getChildAt(x).findViewById(R.id.cutted_price);
-                TextView productPrice = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_price);
-                View pricecut = gridProductLayout.getChildAt(x).findViewById(R.id.price_cut);
-
-
-
-                Glide.with(itemView.getContext()).load(horizontalProductScrollModelList.get(x).getProductImage()).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
-                productTitle.setText(horizontalProductScrollModelList.get(x).getProductTitle());
-
-                if(!horizontalProductScrollModelList.get(x).getProducCuttedPrice().equals("")) {
-                    productCuttedPrice.setText("Rp " + ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(x).getProducCuttedPrice()) );
-                    pricecut.setVisibility(View.VISIBLE);
-                }else {
-                    productCuttedPrice.setText("");
-                    pricecut.setVisibility(View.GONE);
-                }
-
-                if(!horizontalProductScrollModelList.get(x).getProducPrice().equals("")) {
-                    productPrice.setText("Rp " + ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(x).getProducPrice()));
-                }else {
-                    productPrice.setText("");
-                }
-
-                gridProductLayout.getChildAt(x).setBackgroundColor(itemView.getContext().getResources().getColor(R.color.colorAccent));
-
-                if (!title.equals("")) {
-                    final int finalX = x;
-                    gridProductLayout.getChildAt(x).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailActivity.class);
-                            productDetailsIntent.putExtra("productID",horizontalProductScrollModelList.get(finalX).getProductID());
-                            itemView.getContext().startActivity(productDetailsIntent);
-                        }
-                    });
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                container.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color)));
             }
 
-            if (!title.equals("")) {
-                gridLayoutViewAllBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ViewAllActivity.horizontalProductScrollModelList = horizontalProductScrollModelList;
-                        Intent viewAllIntent = new Intent(itemView.getContext(), ViewAllActivity.class);
-                        viewAllIntent.putExtra("layout_code", 1);
-                        viewAllIntent.putExtra("title", title);
-                        itemView.getContext().startActivity(viewAllIntent);
-                    }
-                });
-            }
+            Log.i("jml", String.valueOf(horizontalProductScrollModelList.size()));
+
+            gridView.setLayoutManager(new GridLayoutManager(context, 2));
+            GridProductLayoutAdapter2 gridProductLayoutAdapter = new GridProductLayoutAdapter2(horizontalProductScrollModelList);
+            gridView.setAdapter(gridProductLayoutAdapter);
+            gridProductLayoutAdapter.notifyDataSetChanged();
+
+//            int total = horizontalProductScrollModelList.size();
+//            if (total >= 8){
+//                for (int x = 0;x<8;x++){
+//
+//                    ImageView productImage = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_image);
+//                    TextView productTitle = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_title);
+//                    TextView productCuttedPrice = gridProductLayout.getChildAt(x).findViewById(R.id.cutted_price);
+//                    TextView productPrice = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_price);
+//                    View pricecut = gridProductLayout.getChildAt(x).findViewById(R.id.price_cut);
+//
+//
+//
+//                    Glide.with(itemView.getContext()).load(horizontalProductScrollModelList.get(x).getProductImage()).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
+//                    productTitle.setText(horizontalProductScrollModelList.get(x).getProductTitle());
+//
+//                    if(!horizontalProductScrollModelList.get(x).getProducCuttedPrice().equals("")) {
+//                        productCuttedPrice.setText("Rp " + ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(x).getProducCuttedPrice()) );
+//                        pricecut.setVisibility(View.VISIBLE);
+//                    }else {
+//                        productCuttedPrice.setText("");
+//                        pricecut.setVisibility(View.GONE);
+//                    }
+//
+//                    if(!horizontalProductScrollModelList.get(x).getProducPrice().equals("")) {
+//                        productPrice.setText("Rp " + ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(x).getProducPrice()));
+//                    }else {
+//                        productPrice.setText("");
+//                    }
+//
+//                    gridProductLayout.getChildAt(x).setBackgroundColor(itemView.getContext().getResources().getColor(R.color.colorAccent));
+//
+//                    if (!title.equals("")) {
+//                        final int finalX = x;
+//                        gridProductLayout.getChildAt(x).setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailActivity.class);
+//                                productDetailsIntent.putExtra("productID",horizontalProductScrollModelList.get(finalX).getProductID());
+//                                itemView.getContext().startActivity(productDetailsIntent);
+//                            }
+//                        });
+//                    }
+//
+//
+//
+//                }
+//            }else {
+//                for (int x = 0;x<total;x++){
+//
+//                    ImageView productImage = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_image);
+//                    TextView productTitle = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_title);
+//                    TextView productCuttedPrice = gridProductLayout.getChildAt(x).findViewById(R.id.cutted_price);
+//                    TextView productPrice = gridProductLayout.getChildAt(x).findViewById(R.id.hs_product_price);
+//                    View pricecut = gridProductLayout.getChildAt(x).findViewById(R.id.price_cut);
+//
+//
+//
+//                    Glide.with(itemView.getContext()).load(horizontalProductScrollModelList.get(x).getProductImage()).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
+//                    productTitle.setText(horizontalProductScrollModelList.get(x).getProductTitle());
+//
+//                    if(!horizontalProductScrollModelList.get(x).getProducCuttedPrice().equals("")) {
+//                        productCuttedPrice.setText("Rp " + ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(x).getProducCuttedPrice()) );
+//                        pricecut.setVisibility(View.VISIBLE);
+//                    }else {
+//                        productCuttedPrice.setText("");
+//                        pricecut.setVisibility(View.GONE);
+//                    }
+//
+//                    if(!horizontalProductScrollModelList.get(x).getProducPrice().equals("")) {
+//                        productPrice.setText("Rp " + ProductDetailActivity.currencyFormatter(horizontalProductScrollModelList.get(x).getProducPrice()));
+//                    }else {
+//                        productPrice.setText("");
+//                    }
+//
+//                    gridProductLayout.getChildAt(x).setBackgroundColor(itemView.getContext().getResources().getColor(R.color.colorAccent));
+//
+//                    if (!title.equals("")) {
+//                        final int finalX = x;
+//                        gridProductLayout.getChildAt(x).setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailActivity.class);
+//                                productDetailsIntent.putExtra("productID",horizontalProductScrollModelList.get(finalX).getProductID());
+//                                itemView.getContext().startActivity(productDetailsIntent);
+//                            }
+//                        });
+//                    }
+//
+//
+//
+//                }
+//
+//                for (int x = total;x<8;x++){
+//                    gridProductLayout.getChildAt(x).setVisibility(View.GONE);
+//                }
+//            }
+
+
+//            if (!title.equals("")) {
+//
+//
+//                    gridLayoutViewAllBtn.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            ViewAllActivity.horizontalProductScrollModelList = horizontalProductScrollModelList;
+//
+//                            Intent viewAllIntent = new Intent(itemView.getContext(), ViewAllActivity.class);
+//                            viewAllIntent.putExtra("layout_code", 1);
+//                            viewAllIntent.putExtra("title", title);
+//                            itemView.getContext().startActivity(viewAllIntent);
+//                        }
+//                    });
+//
+//
+//            }
+
         }
     }
 
@@ -426,4 +499,6 @@ public class HomePageAdapter extends RecyclerView.Adapter {
           //  categoryAdapter.notifyDataSetChanged();
         }
     }
+
+
 }
