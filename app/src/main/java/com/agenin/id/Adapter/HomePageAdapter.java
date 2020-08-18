@@ -24,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,13 +55,15 @@ public class HomePageAdapter extends RecyclerView.Adapter {
     private int lastPosition = -1;
     private Context context;
     private String categoryName;
+    private String categorySlug;
 
 
-    public HomePageAdapter(Context context,List<HomePageModel> homePageModelList,String categoryName) {
+    public HomePageAdapter(Context context,List<HomePageModel> homePageModelList,String categoryName,String categorySlug) {
         this.context=context;
         this.categoryName = categoryName;
         this.homePageModelList = homePageModelList;
         recycledViewPool = new RecyclerView.RecycledViewPool();
+        this.categorySlug = categorySlug;
     }
 
     @Override
@@ -108,7 +111,6 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         switch (homePageModelList.get(position).getType()) {
@@ -299,10 +301,13 @@ public class HomePageAdapter extends RecyclerView.Adapter {
 
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         private  void setHorizontalProductLayout(List<HorizontalProductScrollModel> horizontalProductScrollModelList, final String title, String color, final List<WishlistModel> viewAllproductList){
 
-            constraintLayout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color)));
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && constraintLayout instanceof ConstraintLayout) {
+                ((ConstraintLayout) constraintLayout).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color)));
+            } else {
+                ViewCompat.setBackgroundTintList(constraintLayout,ColorStateList.valueOf(Color.parseColor(color)));
+            }
             horizontalLayoutTitle.setText(title);
            if(horizontalProductScrollModelList.size()>8){
                horizontalLayoutViewAllBtn.setVisibility(View.VISIBLE);
@@ -316,11 +321,10 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                        itemView.getContext().startActivity(viewAllIntent);
                    }
                });
-
            }else {
                horizontalLayoutViewAllBtn.setVisibility(View.INVISIBLE);
            }
-            HorizontalProductScrollAdapter horizontalProductScrollAdapter = new HorizontalProductScrollAdapter(horizontalProductScrollModelList);
+            HorizontalProductScrollAdapter horizontalProductScrollAdapter = new HorizontalProductScrollAdapter(horizontalProductScrollModelList,categoryName,categorySlug);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(itemView.getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             horizontalRecycleView.setLayoutManager(linearLayoutManager);
@@ -354,10 +358,10 @@ public class HomePageAdapter extends RecyclerView.Adapter {
                 container.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(color)));
             }
 
-            Log.i("jml", String.valueOf(horizontalProductScrollModelList.size()));
+
 
             gridView.setLayoutManager(new GridLayoutManager(context, 2));
-            GridProductLayoutAdapter2 gridProductLayoutAdapter = new GridProductLayoutAdapter2(horizontalProductScrollModelList);
+            GridProductLayoutAdapter2 gridProductLayoutAdapter = new GridProductLayoutAdapter2(horizontalProductScrollModelList,categoryName,categorySlug);
             gridView.setAdapter(gridProductLayoutAdapter);
             gridProductLayoutAdapter.notifyDataSetChanged();
 

@@ -188,6 +188,8 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
 //                        ProductDetailActivity.fromSearch = true;
 //                    }
                     Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailActivity.class);
+                    productDetailsIntent.putExtra("categoryFrom","Semua Kategori");
+                    productDetailsIntent.putExtra("categorySlug","home");
                     productDetailsIntent.putExtra("productID",productId);
                     itemView.getContext().startActivity(productDetailsIntent);
                 }

@@ -21,6 +21,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
@@ -118,7 +119,6 @@ public class DaftarFragment extends Fragment  {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -135,7 +135,7 @@ public class DaftarFragment extends Fragment  {
         loadingDialog = new Dialog(getContext());
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getContext().getDrawable(R.drawable.slider_background));
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         //loading dialog
 
@@ -266,7 +266,6 @@ public class DaftarFragment extends Fragment  {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -292,7 +291,6 @@ public class DaftarFragment extends Fragment  {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
         bitmap=null;
@@ -393,7 +391,7 @@ public class DaftarFragment extends Fragment  {
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     public static void uploadFile(final Uri fileUri, final Bitmap bitmap, final Context context, Map<String,Object> userdata, final Dialog dialog, Boolean isCamera) {
 
         if (bitmap!=null){

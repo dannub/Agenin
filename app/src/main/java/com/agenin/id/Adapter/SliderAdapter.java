@@ -1,5 +1,6 @@
 package com.agenin.id.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -11,7 +12,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.agenin.id.Model.SliderModel;
@@ -39,13 +42,17 @@ public class SliderAdapter extends PagerAdapter {
         return view == object;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.slider_layout,container,false );
         ConstraintLayout bannercontainer= view.findViewById(R.id.banner_container);
-        bannercontainer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(sliderModelsList.get(position).getBackgroundColor())));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && bannercontainer instanceof ConstraintLayout) {
+            ((ConstraintLayout) bannercontainer).setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(sliderModelsList.get(position).getBackgroundColor())));
+        } else {
+            ViewCompat.setBackgroundTintList(bannercontainer, ColorStateList.valueOf(Color.parseColor(sliderModelsList.get(position).getBackgroundColor())));
+        }
+//        bannercontainer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(sliderModelsList.get(position).getBackgroundColor())));
 
 
         ImageView banner = view.findViewById(R.id.banner_slide);

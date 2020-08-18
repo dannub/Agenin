@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -343,7 +344,6 @@ public class DBQueries {
 
         Call<List<YoutubeVideoModel>> call = client.getYoutube();
         call.enqueue(new Callback<List<YoutubeVideoModel>>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<List<YoutubeVideoModel>> call, Response<List<YoutubeVideoModel>> response) {
                 if (response.isSuccessful()) {
@@ -434,7 +434,6 @@ public class DBQueries {
         Call<ResponseBody> call = wishlistAPI.deleteMyWishlist(user.getId(),wishlistID);
 
         call.enqueue(new Callback<ResponseBody>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
@@ -521,7 +520,6 @@ public class DBQueries {
         CartClient cartAPI = retrofit.create(CartClient.class);
         Call<ResponseBody> call = cartAPI.deleteMyCart(user.getId(),id);
         call.enqueue(new Callback<ResponseBody>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!response.isSuccessful()) {
@@ -785,12 +783,15 @@ public class DBQueries {
         CartClient cartAPI = retrofit.create(CartClient.class);
         Call<ResponseBody> call = cartAPI.updateMyCart(user.getId(),cartInputAPI);
         call.enqueue(new Callback<ResponseBody>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!response.isSuccessful()) {
                     Log.i("response", String.valueOf(response.body()));
-                    Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(context,response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if (loadingdialog!=null) {
                         loadingdialog.dismiss();
                     }
@@ -1049,11 +1050,14 @@ public class DBQueries {
         CartClient cartAPI = retrofit.create(CartClient.class);
         Call<ResponseBody> call = cartAPI.getMyCart(user.getId());
         call.enqueue(new Callback<ResponseBody>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
+                    try {
+                        Toast.makeText(context,response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     if (loadingdialog!=null) {
                         loadingdialog.dismiss();
                     }
@@ -1304,7 +1308,7 @@ public class DBQueries {
         Call<Integer> call = notifAPI.getCountMyNotification(user.getId());
 
         call.enqueue(new Callback<Integer>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
             public void onResponse(Call<Integer> call, Response<Integer> response) {
                 if (response.isSuccessful()){
@@ -1390,7 +1394,7 @@ public class DBQueries {
         Call<NotifAPI> call = notifAPI.getMyNotification(user.getId());
 
         call.enqueue(new Callback<NotifAPI>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
             public void onResponse(Call<NotifAPI> call, Response<NotifAPI> response) {
                 if (response.isSuccessful()){
@@ -1498,7 +1502,7 @@ public class DBQueries {
         Call<WishlistAPI> call = wishlistAPI.getMyWishlist(user.getId());
 
         call.enqueue(new Callback<WishlistAPI>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
             public void onResponse(Call<WishlistAPI> call, Response<WishlistAPI> response) {
                 if (response.isSuccessful()){
@@ -1517,11 +1521,21 @@ public class DBQueries {
                             if (DBQueries.wishlist.contains(ProductDetailActivity.productID)) {
                                 ProductDetailActivity.ALREADY_ADDED_TO_WISHLIST = true;
                                 if (ProductDetailActivity.addToWishlistBtn != null) {
-                                    ProductDetailActivity.addToWishlistBtn.setImageTintList(context.getResources().getColorStateList(R.color.colorAccent4));
+                                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP &&  ProductDetailActivity.addToWishlistBtn instanceof ImageView) {
+                                        ((ImageView)  ProductDetailActivity.addToWishlistBtn).setImageTintList(context.getResources().getColorStateList(R.color.colorAccent4));
+                                    } else {
+                                        ViewCompat.setBackgroundTintList( ProductDetailActivity.addToWishlistBtn,context.getResources().getColorStateList(R.color.colorAccent4));
+                                    }
+
                                 }
                             } else {
                                 if (ProductDetailActivity.addToWishlistBtn != null) {
-                                    ProductDetailActivity.addToWishlistBtn.setImageTintList(context.getResources().getColorStateList(R.color.colorAccent3));
+                                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP &&  ProductDetailActivity.addToWishlistBtn instanceof ImageView) {
+                                        ((ImageView)  ProductDetailActivity.addToWishlistBtn).setImageTintList(context.getResources().getColorStateList(R.color.colorAccent3));
+                                    } else {
+                                        ViewCompat.setBackgroundTintList( ProductDetailActivity.addToWishlistBtn,context.getResources().getColorStateList(R.color.colorAccent3));
+                                    }
+
                                 }
                                 ProductDetailActivity.ALREADY_ADDED_TO_WISHLIST = false;
                             }
@@ -1650,7 +1664,7 @@ public class DBQueries {
             Call<StarAPI> call = starApi.getMyStar(user.getId());
 
             call.enqueue(new Callback<StarAPI>() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
                 @Override
                 public void onResponse(Call<StarAPI> call, Response<StarAPI> response) {
                     if (response.isSuccessful()){
@@ -1748,14 +1762,19 @@ public class DBQueries {
         NotaClient notaApi = retrofit.create(NotaClient.class);
         Call<OrderUserAPI> call = notaApi.getAllMyOrder(user.getId());
         call.enqueue(new Callback<OrderUserAPI>() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
             @Override
             public void onResponse(Call<OrderUserAPI> call, Response<OrderUserAPI> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
-                    if (loadingDialog!=null) {
-                        loadingDialog.dismiss();
+                    try {
+                        Toast.makeText(context,response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                        if (loadingDialog!=null) {
+                            loadingDialog.dismiss();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
                     return;
                 }
                 OrderUserAPI orderUserAPI = response.body();
@@ -1859,10 +1878,15 @@ public class DBQueries {
                         @Override
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (!response.isSuccessful()){
-                                MainActivity.navView.setVisibility(View.GONE);
-                                HomeFragment.maintance(false);
-                                loadingDialog.dismiss();
-                                Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
+
+                                try {
+                                    MainActivity.navView.setVisibility(View.GONE);
+                                    HomeFragment.maintance(false);
+                                    loadingDialog.dismiss();
+                                    Toast.makeText(context,response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                                 return;
 
 
@@ -1992,10 +2016,15 @@ public class DBQueries {
                                             @Override
                                             public void onResponse(Call<List<CategoryModel>> call, Response<List<CategoryModel>> response) {
                                                 if (!response.isSuccessful()){
-                                                    MainActivity.navView.setVisibility(View.GONE);
-                                                    HomeFragment.maintance(false);
-                                                    loadingDialog.dismiss();
-                                                    Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
+
+                                                    try {
+                                                        MainActivity.navView.setVisibility(View.GONE);
+                                                        HomeFragment.maintance(false);
+                                                        loadingDialog.dismiss();
+                                                        Toast.makeText(context,response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                     return;
 
                                                 }
@@ -2012,7 +2041,7 @@ public class DBQueries {
                                                 if (lists.get(index).size()!=0){
                                                     if (lists.get(index).get(1).getType()!=4) {
                                                         lists.get(index).add(1, new HomePageModel(4, categoryModelList));
-                                                        HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label);
+                                                        HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label,categoryName);
                                                         homePageRecyclerView.setAdapter(homePageAdapter);
                                                         homePageAdapter.notifyDataSetChanged();
                                                     }
@@ -2070,9 +2099,14 @@ public class DBQueries {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (!response.isSuccessful()){
-                        MainActivity.navView.setVisibility(View.GONE);
-                        HomeFragment.maintance(false);
-                        Toast.makeText(context,response.code(),Toast.LENGTH_SHORT).show();
+
+                        try {
+                            MainActivity.navView.setVisibility(View.GONE);
+                            HomeFragment.maintance(false);
+                            Toast.makeText(context,response.errorBody().string(),Toast.LENGTH_SHORT).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         return;
 
                     }
@@ -2180,7 +2214,7 @@ public class DBQueries {
 //                            }
                             HomeFragment.isHome = false;
                             MainActivity.navView.setVisibility(View.VISIBLE);
-                            HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label);
+                            HomePageAdapter homePageAdapter = new HomePageAdapter(context, lists.get(index), label,categoryName);
                             homePageRecyclerView.setAdapter(homePageAdapter);
                             homePageAdapter.notifyDataSetChanged();
                             loadingDialog.dismiss();

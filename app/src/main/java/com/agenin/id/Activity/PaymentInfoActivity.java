@@ -18,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 
 import com.agenin.id.R;
@@ -38,7 +39,6 @@ public class PaymentInfoActivity extends AppCompatActivity {
     public static Activity paymentInfoActivity;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +50,7 @@ public class PaymentInfoActivity extends AppCompatActivity {
         loadingDialog = new Dialog(PaymentInfoActivity.this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //loading dialog
 
@@ -88,22 +88,23 @@ public class PaymentInfoActivity extends AppCompatActivity {
 
         total.setText(DeliveryActivity.totalAmount.getText());
         if (bank==1){
-            bank_img.setImageDrawable(getDrawable(R.drawable.bri));
-            norek.setText("6108-01-023888-53-2");
+
+            bank_img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.bri));
+            norek.setText("610801023888532");
             cabang.setText("Surabaya");
             an.setText("Moh Rizal Rizki");
             salin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "6108-01-023888-53-2");
+                    ClipData clip = ClipData.newPlainText("No.Rekening tersalin", "610801023888532");
                     clipboard.setPrimaryClip(clip);
                     Toast.makeText(PaymentInfoActivity.this,"No.Rekening tersalin", Toast.LENGTH_SHORT).show();
 
                 }
             });
         }else if (bank == 2){
-            bank_img.setImageDrawable(getDrawable(R.drawable.bni));
+            bank_img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.bni));
             norek.setText("482520509");
             cabang.setText("Surabaya");
             an.setText("Moh Rizal Rizki");
@@ -119,7 +120,8 @@ public class PaymentInfoActivity extends AppCompatActivity {
             });
         }
         else if(bank==3){
-            bank_img.setImageDrawable(getDrawable(R.drawable.bca));
+
+            bank_img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.bca));
             norek.setText("5060294021");
             cabang.setText("Surabaya");
             an.setText("Siti Rukmi Jayanti");
@@ -134,7 +136,8 @@ public class PaymentInfoActivity extends AppCompatActivity {
                 }
             });
         }else {
-            bank_img.setImageDrawable(getDrawable(R.drawable.mandiri));
+
+            bank_img.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.mandiri));
             norek.setText("1410013917737");
             cabang.setText("Surabaya");
             an.setText("Moh Rizal Rizki");

@@ -27,6 +27,16 @@ public interface UserClient {
     Call<UserAPI> register(@Part MultipartBody.Part bukti,
                            @PartMap Map<String,RequestBody> text);
 
+    @FormUrlEncoded
+    @POST("api/user/register-free/?role=user")
+    Call<UserAPI> registerFree(@Field("email") String email,
+                               @Field("name") String name,
+                               @Field("token_fb") String token_fb,
+                               @Field("name_refferal") String name_refferal,
+                               @Field("password") String password,
+                               @Field("handphone") String handphone
+    );
+
     @GET("api/user/logout")
     Call<ResponseBody> logout();
 

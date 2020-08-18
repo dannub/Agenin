@@ -14,6 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.agenin.id.Activity.MainActivity;
 import com.agenin.id.DBQueries;
 import com.agenin.id.Fragment.ui.HomeFragment;
 import com.agenin.id.Model.CategoryModel;
@@ -98,6 +99,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             HomeFragment.homepagerecyclerView.setLayoutManager(linearLayoutManager);
 
                             HomeFragment.reloadPage(context,slug,name,false);
+                            MainActivity.categoryName=name;
+                            MainActivity.categorySlug= slug;
 
                         }
                     });

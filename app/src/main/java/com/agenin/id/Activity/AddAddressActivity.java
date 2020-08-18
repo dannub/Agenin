@@ -19,6 +19,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.agenin.id.DBQueries;
 import com.agenin.id.Interface.AddressClient;
@@ -69,7 +70,6 @@ public class AddAddressActivity extends AppCompatActivity {
     private AddressModel addressModel;
     private int position;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,9 +84,7 @@ public class AddAddressActivity extends AppCompatActivity {
         loadingDialog = new Dialog(AddAddressActivity.this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
-        }
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //loading dialog
@@ -236,7 +234,6 @@ public class AddAddressActivity extends AppCompatActivity {
                                                         kodepos.getText().toString(),
                                                         alamat.getText().toString());
                                                 call.enqueue(new Callback<AddressModel>() {
-                                                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                                     @Override
                                                     public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
                                                         if (!response.isSuccessful()) {
@@ -294,7 +291,6 @@ public class AddAddressActivity extends AppCompatActivity {
                                                         alamat.getText().toString());
 
                                                 call.enqueue(new Callback<AddressModel>() {
-                                                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                                     @Override
                                                     public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
                                                         if (!response.isSuccessful()) {

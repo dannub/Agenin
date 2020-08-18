@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -81,7 +82,7 @@ public class HomeFragment extends Fragment {
     public static Boolean isHome;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -101,7 +102,7 @@ public class HomeFragment extends Fragment {
         loadingDialog = new Dialog(getContext());
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getContext().getDrawable(R.drawable.slider_background));
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         //loading dialog
 
@@ -154,7 +155,7 @@ public class HomeFragment extends Fragment {
 
         isHome =true;
 
-        adapter = new HomePageAdapter(getContext(),homePageModelFakeList,"");
+        adapter = new HomePageAdapter(getContext(),homePageModelFakeList,"","");
         adapter.notifyDataSetChanged();
         homepagerecyclerView.setAdapter(adapter);
 
@@ -288,7 +289,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 swipeRefreshLayout.setRefreshing(true);
-                reloadPage(getContext(),"home","Semua Kategori",true);
+                if (MainActivity.categoryName==""){
+                    reloadPage(getContext(),"home","Semua Kategori",true);
+                }else {
+                    reloadPage(getContext(),MainActivity.categorySlug,MainActivity.categoryName,false);
+                }
             }
         });
         ////refresh layout
@@ -296,9 +301,16 @@ public class HomeFragment extends Fragment {
         retryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reloadPage(getContext(),"home","Semua Kategori",true);
+                if (MainActivity.categoryName==""){
+                    reloadPage(getContext(),"home","Semua Kategori",true);
+                }else {
+                    reloadPage(getContext(),MainActivity.categorySlug,MainActivity.categoryName,false);
+                }
             }
         });
+
+
+
 
 
 
@@ -322,7 +334,7 @@ public class HomeFragment extends Fragment {
             maintanance_text.setVisibility(View.GONE);
 
             if (load){
-                adapter = new HomePageAdapter(context,homePageModelFakeList,"");
+                adapter = new HomePageAdapter(context,homePageModelFakeList,"","");
                 adapter.notifyDataSetChanged();
                 homepagerecyclerView.setAdapter(adapter);
             }
@@ -453,7 +465,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        reloadPage(getContext(),"home","Semua Kategori",true);
+        if (MainActivity.categoryName==""){
+            reloadPage(getContext(),"home","Semua Kategori",true);
+        }else {
+            reloadPage(getContext(),MainActivity.categorySlug,MainActivity.categoryName,false);
+        }
+
 
     }
 }

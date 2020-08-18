@@ -3,6 +3,7 @@ package com.agenin.id.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -102,7 +104,6 @@ public class CartAdapter extends RecyclerView.Adapter {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
         switch (cartItemModelList.get(position).getType()){
@@ -219,7 +220,6 @@ public class CartAdapter extends RecyclerView.Adapter {
             sendPrice = itemView.findViewById(R.id.sendprice);
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.M)
         private void  setItemDetails(final Context context, String resource,String _id, String productID, String title, int quantity, final String productPriceText,final int position, Boolean inStock, String satuanText,Double weight,int minOrder) {
             Glide.with(itemView.getContext()).load(resource).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
             productTitle.setText(title);
@@ -259,12 +259,21 @@ public class CartAdapter extends RecyclerView.Adapter {
                 ///for  coupon dialog
 
                 if (quantity<=minOrder){
-                    decrease.setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
+                    decrease.setEnabled(true);
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && decrease instanceof TextView) {
+                        ((TextView) decrease).setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
+                    } else {
+                        ViewCompat.setBackgroundTintList(decrease,ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
+                    }
                     decrease.setTextColor(ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
                     decrease.setEnabled(false);
                 }else {
                     decrease.setEnabled(true);
-                    decrease.setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && decrease instanceof TextView) {
+                        ((TextView) decrease).setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
+                    } else {
+                        ViewCompat.setBackgroundTintList(decrease,ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
+                    }
                     decrease.setTextColor(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
                 }
 
@@ -360,13 +369,21 @@ public class CartAdapter extends RecyclerView.Adapter {
                     public void onClick(View v) {
                         int qty = Integer.parseInt((String) productQuantity.getText());
                         if (qty<=minOrder){
-                            decrease.setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && decrease instanceof TextView) {
+                                ((TextView) decrease).setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
+                            } else {
+                                ViewCompat.setBackgroundTintList(decrease,ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
+                            }
                             decrease.setTextColor(ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
                             decrease.setEnabled(false);
                             Toast.makeText(context,"Minimum pemesanan "+minOrder, Toast.LENGTH_SHORT).show();
                         }else {
                             decrease.setEnabled(true);
-                            decrease.setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && decrease instanceof TextView) {
+                                ((TextView) decrease).setBackgroundTintList(ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
+                            } else {
+                                ViewCompat.setBackgroundTintList(decrease,ColorStateList.valueOf(itemView.getResources().getColor(R.color.decrease_on)));
+                            }
                             decrease.setTextColor(ColorStateList.valueOf(itemView.getResources().getColor(R.color.colorAccent)));
                             productQuantity.setText(String.valueOf(qty-1));
                             int sendprice =  ((int)(8000*weight)*qty-1);

@@ -510,7 +510,6 @@ public class UpdateInfoFragment extends Fragment {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void uploadFile(final Uri fileUri, final Bitmap bitmap, final Context context, Map<String, Object> userdata, final Dialog dialog) {
 
       if (bitmap!=null){
@@ -699,7 +698,6 @@ public class UpdateInfoFragment extends Fragment {
 //                });
 //    }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -716,7 +714,6 @@ public class UpdateInfoFragment extends Fragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
         bitmap=null;

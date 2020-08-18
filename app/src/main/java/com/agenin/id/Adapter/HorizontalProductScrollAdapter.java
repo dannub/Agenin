@@ -21,9 +21,13 @@ import java.util.List;
 public class HorizontalProductScrollAdapter extends RecyclerView.Adapter<HorizontalProductScrollAdapter.ViewHolder> {
 
     private List<HorizontalProductScrollModel> horizontalProductScrollModelList;
+    private String categoryFrom;
+    private String categorySlug;
 
-    public HorizontalProductScrollAdapter(List<HorizontalProductScrollModel> horizontalProductScrollModelList) {
+    public HorizontalProductScrollAdapter(List<HorizontalProductScrollModel> horizontalProductScrollModelList,String categoryFrom,String categorySlug) {
         this.horizontalProductScrollModelList = horizontalProductScrollModelList;
+        this.categoryFrom=categoryFrom;
+        this.categorySlug= categorySlug;
     }
 
     @NonNull
@@ -97,6 +101,8 @@ public class HorizontalProductScrollAdapter extends RecyclerView.Adapter<Horizon
                     public void onClick(View v) {
                         Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailActivity.class);
                         productDetailsIntent.putExtra("productID",productId);
+                        productDetailsIntent.putExtra("categoryFrom",categoryFrom);
+                        productDetailsIntent.putExtra("categorySlug",categorySlug);
                         itemView.getContext().startActivity(productDetailsIntent);
                     }
                 });

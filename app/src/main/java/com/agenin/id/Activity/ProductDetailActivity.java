@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
@@ -219,9 +220,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
-        }
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
@@ -248,7 +247,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onStart() {
         super.onStart();
@@ -256,6 +254,14 @@ public class ProductDetailActivity extends AppCompatActivity {
 
 
         productID = getIntent().getStringExtra("productID").replace(" ","");
+        if (getIntent().getStringExtra("categorySlug").equals("home")||getIntent().getStringExtra("categorySlug").equals("")){
+            MainActivity.categoryName= "";
+            MainActivity.categorySlug= "";
+        }else {
+            MainActivity.categoryName= getIntent().getStringExtra("categoryFrom").replace(" ","");
+            MainActivity.categorySlug= getIntent().getStringExtra("categorySlug").replace(" ","");
+        }
+
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -295,25 +301,39 @@ public class ProductDetailActivity extends AppCompatActivity {
 //
         if (DBQueries.wishlist.contains(productID)){
             ALREADY_ADDED_TO_WISHLIST = true;
-            addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+            } else {
+                ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent4));
+            }
 
         }else {
-            addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+            } else {
+                ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent3));
+            }
             ALREADY_ADDED_TO_WISHLIST = false;
         }
         reloadPage();
 
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static void setRatting(int starPosition) {
 
         for (int x = 0; x <rateNowContainer.getChildCount(); x++){
             ImageView starBtn = (ImageView)rateNowContainer.getChildAt(x);
-            starBtn.setImageTintList(ColorStateList.valueOf(Color.parseColor("#CCC8C8")));
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && starBtn instanceof ImageView) {
+                ((ImageView) starBtn).setImageTintList(ColorStateList.valueOf(Color.parseColor("#CCC8C8")));
+            } else {
+                ViewCompat.setBackgroundTintList(starBtn,ColorStateList.valueOf(Color.parseColor("#CCC8C8")));
+            }
             if (x <= starPosition){
-                starBtn.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffbb00")));
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && starBtn instanceof ImageView) {
+                    ((ImageView) starBtn).setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffbb00")));
+                } else {
+                    ViewCompat.setBackgroundTintList(starBtn,ColorStateList.valueOf(Color.parseColor("#ffbb00")));
+                }
             }
 
         }
@@ -760,10 +780,17 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                 if (DBQueries.wishlist.contains(productID)){
                     ALREADY_ADDED_TO_WISHLIST = true;
-                    addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
-
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                        ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                    } else {
+                        ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent4));
+                    }
                 }else {
-                    addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                        ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+                    } else {
+                        ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent3));
+                    }
                     ALREADY_ADDED_TO_WISHLIST = false;
                 }
 
@@ -970,7 +997,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                                                     }
 
                                                     ALREADY_ADDED_TO_WISHLIST = false;
-                                                    addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+                                                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                                                        ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+                                                    } else {
+                                                        ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent3));
+                                                    }
 
                                                     DBQueries.wishlist.remove(index);
                                                     Toast.makeText(ProductDetailActivity.this, "Dihapus dari Daftar Favotit", Toast.LENGTH_SHORT).show();
@@ -979,7 +1010,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                                                 }else {
                                                     addToWishlistBtn.setEnabled(true);
-                                                    addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                                                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                                                        ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                                                    } else {
+                                                        ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent4));
+                                                    }
                                                     String error = response.message();
                                                     Toast.makeText(ProductDetailActivity.this, error, Toast.LENGTH_SHORT).show();
                                                 }
@@ -990,7 +1025,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                                             public void onFailure(Call<ResponseBody> call, Throwable t) {
                                                 Log.e("debug", "onFailure: ERROR > " + t.toString());
                                                 addToWishlistBtn.setEnabled(true);
-                                                addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                                                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                                                    ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                                                } else {
+                                                    ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent4));
+                                                }
 
                                                  loadingDialog.dismiss();
 
@@ -1042,7 +1081,11 @@ public class ProductDetailActivity extends AppCompatActivity {
                                                         }
 
                                                         ALREADY_ADDED_TO_WISHLIST = true;
-                                                        addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                                                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                                                        ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent4));
+                                                    } else {
+                                                        ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent4));
+                                                    }
                                                         DBQueries.wishlist.add(productID);
 
                                                         Toast.makeText(ProductDetailActivity.this, "Ditambahkan di Daftar Favorit", Toast.LENGTH_SHORT).show();
@@ -1051,7 +1094,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
                                                 }else {
                                                     addToWishlistBtn.setEnabled(true);
-                                                    addToWishlistBtn.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+                                                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && addToWishlistBtn instanceof ImageView) {
+                                                        ((ImageView) addToWishlistBtn).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+                                                    } else {
+                                                        ViewCompat.setBackgroundTintList(addToWishlistBtn,getResources().getColorStateList(R.color.colorAccent3));
+                                                    }
                                                     String error = response.message();
                                                     Toast.makeText(ProductDetailActivity.this, error, Toast.LENGTH_SHORT).show();
                                                 }

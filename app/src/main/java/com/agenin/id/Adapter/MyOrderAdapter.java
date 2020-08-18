@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.agenin.id.Activity.OrderDetailsActivity;
@@ -69,7 +70,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Viewhold
         return new Viewholder(view);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(@NonNull MyOrderAdapter.Viewholder viewholder, int position) {
         String nota_id = myOrderItemModelList.get(position).getNota_id();
@@ -127,7 +127,6 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Viewhold
 
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         public void setData(String notaid,String resource, String title, final String productID, final int ratting, boolean ordered, boolean packed, boolean shipped, boolean delivered, boolean canceled, Date ordered_date, Date packed_date, Date shipped_date, Date delivered_date, Date canceled_date, Date tgl_Pesan, String ket_kirim, String metode_kirim, final int position) {
 
             Glide.with(itemView.getContext()).load(DBQueries.url+resource).apply(new RequestOptions().placeholder(R.drawable.load_icon)).into(productImage);
@@ -142,26 +141,50 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Viewhold
 
             if(canceled) {
                 deliveryStatus.setText("Pesanan Dibatalkan \n"+changeDate(canceled_date));
-                orderIndicator.setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.colorAccent4)));
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderIndicator instanceof ImageView) {
+                    ((ImageView) orderIndicator).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.colorAccent4)));
+                } else {
+                    ViewCompat.setBackgroundTintList(orderIndicator,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.colorAccent4)));
+                }
             }else {
                 if (delivered){
-                    orderIndicator.setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.delivered)));
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderIndicator instanceof ImageView) {
+                        ((ImageView) orderIndicator).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.delivered)));
+                    } else {
+                        ViewCompat.setBackgroundTintList(orderIndicator,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.delivered)));
+                    }
                     deliveryStatus.setText("Pesanan telah sampai \n"+changeDate(delivered_date));
 
                 }else {
                     if (shipped){
-                        orderIndicator.setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.shipping)));
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderIndicator instanceof ImageView) {
+                            ((ImageView) orderIndicator).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.shipping)));
+                        } else {
+                            ViewCompat.setBackgroundTintList(orderIndicator,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.shipping)));
+                        }
                         deliveryStatus.setText("Pesanan sedang dikirim \n"+changeDate(shipped_date));
                     }else {
                         if (packed){
-                            orderIndicator.setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.packed)));
+                            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderIndicator instanceof ImageView) {
+                                ((ImageView) orderIndicator).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.packed)));
+                            } else {
+                                ViewCompat.setBackgroundTintList(orderIndicator,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.packed)));
+                            }
                             deliveryStatus.setText("Pesanan telah dikemas \n"+changeDate(packed_date));
                         }else {
                             if (ordered){
-                                orderIndicator.setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.ordered)));
+                                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderIndicator instanceof ImageView) {
+                                    ((ImageView) orderIndicator).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.ordered)));
+                                } else {
+                                    ViewCompat.setBackgroundTintList(orderIndicator,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.ordered)));
+                                }
                                 deliveryStatus.setText("Telah dikonfirmasi \n" + changeDate(ordered_date));
                             }else {
-                                orderIndicator.setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.pesanan)));
+                                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderIndicator instanceof ImageView) {
+                                    ((ImageView) orderIndicator).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.pesanan)));
+                                } else {
+                                    ViewCompat.setBackgroundTintList(orderIndicator,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.pesanan)));
+                                }
                                 deliveryStatus.setText("Telah memesan menunggu konfirmasi \n" + changeDate(tgl_Pesan));
                             }
                         }
@@ -327,14 +350,21 @@ public class MyOrderAdapter extends RecyclerView.Adapter<MyOrderAdapter.Viewhold
             return day;
         }
 
-        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
         private void setRatting(int starPosition) {
 
                 for (int x = 0; x < rateNowContainer.getChildCount(); x++) {
                     ImageView starBtn = (ImageView) rateNowContainer.getChildAt(x);
-                    starBtn.setImageTintList(itemView.getContext().getResources().getColorStateList(R.color.colorAccent3));
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && starBtn instanceof ImageView) {
+                        ((ImageView) starBtn).setImageTintList(ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.colorAccent3)));
+                    } else {
+                        ViewCompat.setBackgroundTintList(starBtn,ColorStateList.valueOf(itemView.getContext().getResources().getColor(R.color.colorAccent3)));
+                    }
                     if (x <= starPosition) {
-                        starBtn.setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffbb00")));
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && starBtn instanceof ImageView) {
+                            ((ImageView) starBtn).setImageTintList(ColorStateList.valueOf(Color.parseColor("#ffbb00")));
+                        } else {
+                            ViewCompat.setBackgroundTintList(starBtn,ColorStateList.valueOf(Color.parseColor("#ffbb00")));
+                        }
                     }
 
                 }

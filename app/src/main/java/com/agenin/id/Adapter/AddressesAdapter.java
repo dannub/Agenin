@@ -242,7 +242,6 @@ public class AddressesAdapter extends RecyclerView.Adapter<AddressesAdapter.View
                         AddressClient addressAPI = retrofit.create(AddressClient.class);
                         Call<ResponseBody> call = addressAPI.deleteSelectedAddress(user.getId(),_id);
                         call.enqueue(new Callback<ResponseBody>() {
-                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                 if (!response.isSuccessful()) {

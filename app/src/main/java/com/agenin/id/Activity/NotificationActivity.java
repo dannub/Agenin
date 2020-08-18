@@ -21,6 +21,9 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -32,10 +35,6 @@ import com.agenin.id.Model.Api.NotifAPI;
 import com.agenin.id.Model.UserModel;
 import com.agenin.id.Preference.UserPreference;
 import com.agenin.id.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -69,7 +68,7 @@ public class NotificationActivity extends AppCompatActivity {
     private boolean runQuery=false;
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +88,7 @@ public class NotificationActivity extends AppCompatActivity {
         loadingDialog = new Dialog(NotificationActivity.this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         noData = findViewById(R.id.pesanan);
@@ -123,6 +122,8 @@ public class NotificationActivity extends AppCompatActivity {
         adapter = new NotificationAdapter(DBQueries.notificationModelList);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+
 
 
 
@@ -272,9 +273,6 @@ public class NotificationActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
 
 }

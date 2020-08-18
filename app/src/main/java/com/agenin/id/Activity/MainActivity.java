@@ -52,6 +52,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -85,6 +86,9 @@ public class MainActivity extends AppCompatActivity
     public static Toolbar toolbar;
     private AppBarConfiguration mAppBarConfiguration;
     private FrameLayout frameLayout;
+
+    //categoryFrom
+    public static String categoryName,categorySlug;
 
     public   static final  int HOME_FRAGMENT = 0;
     private  static final  int ORDER_FRAGMENT = 1;
@@ -146,13 +150,14 @@ public class MainActivity extends AppCompatActivity
 //
 //        params = (AppBarLayout.LayoutParams) toolbar.getLayoutParams();
 
+        categoryName="";
+        categorySlug="";
+
         //loading dialog
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            loadingDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.slider_background));
-        }
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
 
 
@@ -170,6 +175,8 @@ public class MainActivity extends AppCompatActivity
 //        }else {
 //            loadingDialog.dismiss();
 //        }
+
+
 
 
 
@@ -269,6 +276,8 @@ public class MainActivity extends AppCompatActivity
                        case R.id.navigation_home:
                            invalidateOptionsMenu();
 
+                           categoryName="";
+                           categorySlug="";
                            isHome =true;
                            params.setScrollFlags(scrollFlags);
                             currentFragment = HOME_FRAGMENT;
@@ -566,6 +575,8 @@ public class MainActivity extends AppCompatActivity
     public void onBackPressed() {
 
       if (isHome||currentFragment==HOME_FRAGMENT){
+          categorySlug="";
+          categoryName="";
             if (HomeFragment.isHome){
 
                 super.onBackPressed();
@@ -579,7 +590,6 @@ public class MainActivity extends AppCompatActivity
             }
 
       }else if (currentFragment!=HOME_FRAGMENT){
-
           params.setScrollFlags(scrollFlags);
           navView.getMenu().getItem(0).setChecked(true);
           currentFragment = HOME_FRAGMENT;

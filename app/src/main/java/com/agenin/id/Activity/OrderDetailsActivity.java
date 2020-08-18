@@ -39,6 +39,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -197,7 +199,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
     private ConnectivityManager connectivityManager;
     private NetworkInfo networkInfo;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -213,7 +215,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         loadingDialog = new Dialog(this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(this.getDrawable(R.drawable.slider_background));
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //loading dialog
@@ -328,7 +330,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void setProgress(){
         String format = "dd-MM-yyyy HH:mm:ss";
         final SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -338,7 +339,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
             orderedDate.setVisibility(View.VISIBLE);
             cancel.setVisibility(View.VISIBLE);
             orderedDate.setText(changeDate(DBQueries.StringtoDate(myOrderDetail.getConfirmed_date())));
-            orderedIndikator.setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderedIndikator instanceof ImageView) {
+                ((ImageView) orderedIndikator).setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+            } else {
+                ViewCompat.setBackgroundTintList(orderedIndikator,getResources().getColorStateList(R.color.colorSuccess));
+            }
             orderedBody.setVisibility(View.VISIBLE);
 
 
@@ -355,7 +360,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                 cancel.setVisibility(View.VISIBLE);
                 packedDate.setVisibility(View.VISIBLE);
                 packedDate.setText(changeDate(DBQueries.StringtoDate(myOrderDetail.getPacked_date())));
-                packedIndikator.setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && packedIndikator instanceof ImageView) {
+                    ((ImageView) packedIndikator).setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+                } else {
+                    ViewCompat.setBackgroundTintList(packedIndikator,getResources().getColorStateList(R.color.colorSuccess));
+                }
 
                  dateString = sdf.format(DBQueries.StringtoDate(myOrderDetail.getPacked_date()));
                 waktuPesan.setText(dateString);
@@ -368,7 +377,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     cancel.setVisibility(View.GONE);
                     shippingBody.setVisibility(View.VISIBLE);
                     shippingDate.setText(changeDate(DBQueries.StringtoDate(myOrderDetail.getShipped_date())));
-                    shippingIndikator.setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && shippingIndikator instanceof ImageView) {
+                        ((ImageView) shippingIndikator).setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+                    } else {
+                        ViewCompat.setBackgroundTintList(shippingIndikator,getResources().getColorStateList(R.color.colorSuccess));
+                    }
 
                     delivered.setVisibility(View.VISIBLE);
                     detailShipping.setText(myOrderDetail.getMetode_kirim()+" Resi : "+myOrderDetail.getKet_kirim());
@@ -388,7 +401,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                         delivered.setVisibility(View.GONE);
                         cancel.setVisibility(View.GONE);
                         deliveredDate.setText(changeDate(DBQueries.StringtoDate(myOrderDetail.getDelivered_date())));
-                        deliveredIndikator.setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+                        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && deliveredIndikator instanceof ImageView) {
+                            ((ImageView) deliveredIndikator).setImageTintList(getResources().getColorStateList(R.color.colorSuccess));
+                        } else {
+                            ViewCompat.setBackgroundTintList(deliveredIndikator,getResources().getColorStateList(R.color.colorSuccess));
+                        }
                         dateString = sdf.format(DBQueries.StringtoDate(myOrderDetail.getDelivered_date()));
                         waktuPesan.setText(dateString);
                         status.setText("Telah Dikirim");
@@ -424,25 +441,40 @@ public class OrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initProgress(){
         orderedPackedProgressBar.setVisibility(View.INVISIBLE);
         packedShippingProgressBar.setVisibility(View.INVISIBLE);
         shippingDeliveredProgressBar.setVisibility(View.INVISIBLE);
 
         orderedDate.setVisibility(View.GONE);
-        orderedIndikator.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && orderedIndikator instanceof ImageView) {
+            ((ImageView) orderedIndikator).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        } else {
+            ViewCompat.setBackgroundTintList(orderedIndikator,getResources().getColorStateList(R.color.colorAccent3));
+        }
         orderedBody.setVisibility(View.GONE);
         orderedPackedProgressBar.setProgress(0);
         packedDate.setVisibility(View.GONE);
-        packedIndikator.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && packedIndikator instanceof ImageView) {
+            ((ImageView) packedIndikator).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        } else {
+            ViewCompat.setBackgroundTintList(packedIndikator,getResources().getColorStateList(R.color.colorAccent3));
+        }
         packedShippingProgressBar.setProgress(0);
         shippingDate.setVisibility(View.GONE);
-        shippingIndikator.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && shippingIndikator instanceof ImageView) {
+            ((ImageView) shippingIndikator).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        } else {
+            ViewCompat.setBackgroundTintList(shippingIndikator,getResources().getColorStateList(R.color.colorAccent3));
+        }
         shippingBody.setVisibility(View.GONE);
         shippingDeliveredProgressBar.setProgress(0);
         deliveredDate.setVisibility(View.GONE);
-        deliveredIndikator.setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP && deliveredIndikator instanceof ImageView) {
+            ((ImageView) deliveredIndikator).setImageTintList(getResources().getColorStateList(R.color.colorAccent3));
+        } else {
+            ViewCompat.setBackgroundTintList(deliveredIndikator,getResources().getColorStateList(R.color.colorAccent3));
+        }
         deliveredBody.setVisibility(View.GONE);
         copyResi.setVisibility(View.GONE);
         canceledOrdered.setVisibility(View.GONE);
@@ -529,7 +561,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
             NotaClient notaApi = retrofit.create(NotaClient.class);
             Call<OrderDetailsAPI> call = notaApi.getMyOrderDetails(user.getId(),nota_id,product_id);
             call.enqueue(new Callback<OrderDetailsAPI>() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                 @Override
                 public void onResponse(Call<OrderDetailsAPI> call, Response<OrderDetailsAPI> response) {
                     if (!response.isSuccessful()) {
@@ -703,7 +734,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
                                             Call<ResponseBody> call = notaAPI.delivedNota(user.getId(),nota_id);
 
                                             call.enqueue(new Callback<ResponseBody>() {
-                                                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
                                                 @Override
                                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                     if (!response.isSuccessful()) {

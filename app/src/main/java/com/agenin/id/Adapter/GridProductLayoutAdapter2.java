@@ -21,9 +21,13 @@ import java.util.List;
 public class GridProductLayoutAdapter2 extends RecyclerView.Adapter<GridProductLayoutAdapter2.ViewHolder> {
 
     private List<HorizontalProductScrollModel> horizontalProductScrollModelList;
+    private String categoryFrom;
+    private String categorySlug;
 
-    public GridProductLayoutAdapter2(List<HorizontalProductScrollModel> horizontalProductScrollModelList) {
+    public GridProductLayoutAdapter2(List<HorizontalProductScrollModel> horizontalProductScrollModelList,String categoryFrom,String categorySlug) {
         this.horizontalProductScrollModelList = horizontalProductScrollModelList;
+        this.categoryFrom = categoryFrom;
+        this.categorySlug=categorySlug;
     }
 
     @NonNull
@@ -91,6 +95,8 @@ public class GridProductLayoutAdapter2 extends RecyclerView.Adapter<GridProductL
                     public void onClick(View v) {
                         Intent productDetailsIntent = new Intent(itemView.getContext(), ProductDetailActivity.class);
                         productDetailsIntent.putExtra("productID",productId);
+                        productDetailsIntent.putExtra("categoryFrom",categoryFrom);
+                        productDetailsIntent.putExtra("categorySlug",categorySlug);
                         itemView.getContext().startActivity(productDetailsIntent);
                     }
                 });

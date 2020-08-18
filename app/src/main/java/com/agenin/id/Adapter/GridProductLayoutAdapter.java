@@ -24,9 +24,13 @@ import java.util.List;
 public class GridProductLayoutAdapter extends BaseAdapter {
 
     List<HorizontalProductScrollModel> horizontalProductScrollModelList;
+    String categoryFrom;
+    private String categorySlug;
 
-    public GridProductLayoutAdapter(List<HorizontalProductScrollModel> horizontalProductScrollModelList) {
+    public GridProductLayoutAdapter(List<HorizontalProductScrollModel> horizontalProductScrollModelList,String categoryFrom,String categorySlug) {
         this.horizontalProductScrollModelList = horizontalProductScrollModelList;
+        this.categoryFrom = categoryFrom;
+        this.categorySlug = categorySlug;
     }
 
     @Override
@@ -59,6 +63,8 @@ public class GridProductLayoutAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent productDetailsIntent = new Intent(parent.getContext(), ProductDetailActivity.class);
                 productDetailsIntent.putExtra("productID",horizontalProductScrollModelList.get(position).getProductID());
+                productDetailsIntent.putExtra("categoryFrom",categoryFrom);
+                productDetailsIntent.putExtra("categorySlug",categorySlug);
                 parent.getContext().startActivity(productDetailsIntent);
             }
         });

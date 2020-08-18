@@ -44,6 +44,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -166,7 +167,6 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
     private Bitmap bitmap;
     private static boolean isCamera;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,7 +176,7 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
         loadingDialog = new Dialog(PaymentActivity.this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
-        loadingDialog.getWindow().setBackgroundDrawable(PaymentActivity.this.getDrawable(R.drawable.slider_background));
+        loadingDialog.getWindow().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         //loading dialog
@@ -342,7 +342,6 @@ public class PaymentActivity extends AppCompatActivity  implements  ProgressRequ
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(uri));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void uploadFile(final Uri fileUri, final Bitmap bitmap, final Context context, final Dialog dialog, Boolean isCamera) {
 
         if (bitmap!=null){
